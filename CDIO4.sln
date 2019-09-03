@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDIO4", "CDIO4\CDIO4.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDIO4.Tests", "CDIO4.Tests\CDIO4.Tests.csproj", "{435CEAF0-3944-4777-AEA3-F8B8AFA4AA1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{435FCDAB-634E-4B10-B39D-487A58BF9FA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{435CEAF0-3944-4777-AEA3-F8B8AFA4AA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{435CEAF0-3944-4777-AEA3-F8B8AFA4AA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{435CEAF0-3944-4777-AEA3-F8B8AFA4AA1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{435FCDAB-634E-4B10-B39D-487A58BF9FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{435FCDAB-634E-4B10-B39D-487A58BF9FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{435FCDAB-634E-4B10-B39D-487A58BF9FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{435FCDAB-634E-4B10-B39D-487A58BF9FA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
