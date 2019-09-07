@@ -128,9 +128,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Member\Codes\SessionHelper.cs" />
-    <Compile Include="Areas\Member\Codes\UserSession.cs" />
-    <Compile Include="Areas\Member\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Member\Controllers\Home_AdminController.cs" />
+    <Compile Include="Common\CommonStants.cs" />
+    <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Areas\Member\Models\DangNhapModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1919,7 +1919,7 @@
     <Content Include="Assets\Home\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Member\Views\web.config" />
-    <Content Include="Areas\Member\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Member\Views\Home_Admin\Index.cshtml" />
     <Content Include="Assets\Bs 4\css\bootstrap-grid.css.map" />
     <Content Include="Assets\Bs 4\css\bootstrap-grid.min.css.map" />
     <Content Include="Assets\Bs 4\css\bootstrap-reboot.css.map" />
@@ -1959,8 +1959,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1970,6 +1968,7 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Member\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

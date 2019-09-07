@@ -17,6 +17,18 @@ namespace Model
             context = new AuctionOnlineDbContext();
         }
 
+        public string Insert(TaiKhoan entity)
+        {
+            context.TaiKhoans.Add(entity);
+            context.SaveChanges();
+            return entity.TenDangNhap;
+        }
+
+        public TaiKhoan GetByName(string tenDangNhap)
+        {
+            return context.TaiKhoans.SingleOrDefault(x => x.TenDangNhap == tenDangNhap);
+        }
+
         public bool Login(string userName, string passWord)
         {
             object[] sqlParams =

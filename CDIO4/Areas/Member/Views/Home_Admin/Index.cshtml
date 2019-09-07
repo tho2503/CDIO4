@@ -2,8 +2,7 @@
 @{
     Layout = null;
 }
-@model CDIO4.Areas.Member.Models.DangNhapModel
-
+@model  CDIO4.Areas.Member.Models.DangNhapModel      
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,41 +17,51 @@
     <!-- Custom styles for this template-->
     <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Home.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
+    <style>
+        
     </style>
 </head>
 <body id="page-top">
+    @{
+        var session = (CDIO4.Common.UserLogin)Session[CDIO4.Common.CommonStants.USER_SESSION];
+    }
     <div class="navbar navbar-expand navbar-dark bg-primary fixed-top">
         <div class="container">
             <a class="navbar-brand ml-md-5 mr-auto" href="index.html">Website Đấu Giá</a>
             <!--Bar left-->
-            <ul class="navbar-nav">
-                <li class="nav-item no-arrow mx-2">
+            <ul class="navbar-nav pr-5">
+                <li class="nav-item no-arrow mx-1">
                     <a class="btn text-white" href="#">
                         <i class="fas fa-shopping-cart fa-fw"></i>
                         Giỏ hàng
                     </a>
                 </li>
-                <li class="nav-item no-arrow mx-2">
+                <li class="nav-item no-arrow mx-1">
                     <a class="btn text-white" href="#">
                         <i class="fas fa-gavel fa-fw"></i>
                         Đấu giá của tôi
                     </a>
                 </li>
-                <li class="nav-item mx-2">
+                <li class="nav-item mx-1">
                     <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
                 </li>
-                @*<li class="nav-item dropdown no-arrow mx-2">
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-circle fa-fw"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">Cá nhân</a>
-                            <a class="dropdown-item" href="#">Đơn hàng</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
-                        </div>
-                    </li>*@
+                <li class="nav-item dropdown no-arrow mx-1" id="login-Account">
+
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw"></i>
+                        @if (session != null)
+                        {
+                            @session.TenDangNhap
+                        }
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Cá nhân</a>
+                        <a class="dropdown-item" href="#">Đơn hàng</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -154,7 +163,7 @@
             </div>
         </div>
     </div>
-      
+
     <footer class="footer bg-primary">
         <div class="container">
             <div class="copyright text-center">
@@ -163,15 +172,14 @@
         </div>
     </footer>
 
-    <div class="modal fade" role="dialog" id="loginModal" tabindex="-1" >
+    <div class="modal fade" role="dialog" id="loginModal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Đăng nhập</h3>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    @using (Html.BeginForm())
+                    @using (@Html.BeginForm("Login", "Home_Admin", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
@@ -204,36 +212,50 @@
         </div>
     </div>
     <!-- Logout Modal-->
-    @*<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
-                    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn đăng xuất không?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="button" >@Html.ActionLink("Đăng xuất", "Logout", "Home_Admin" , new { @class = "text-white", @style = "text-decoration:none;" })</button>
+
                 </div>
             </div>
-        </div>*@
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
-    @*<script type="text/javascript">
-       $("#Login-Button").click();  
-    </script>*@
-    <script type="text/javascript">   
-        $(document).ready(function () {        
-            $("#loginModal").modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-        });
+    <script type="text/javascript">
+        @if (session == null)
+        {
+            <text>$(document).ready(function () {
+                    $("#loginModal").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    var login_button = document.getElementById("Login-Button");
+                    var login_account = document.getElementById("login-Account");
+                    login_account.parentNode.replaceChild(login_button, login_account);
+                });
+            </text>
+        }
+        else
+        {
+            <text>
+                    $('loginModal').attr("disabled", true);
+                    var login_button = document.getElementById("Login-Button");
+                    var login_account = document.getElementById("login-Account");
+                    login_button.parentNode.replaceChild(login_account, login_button);
+            </text>
+        }
     </script>
 </body>
 </html>
