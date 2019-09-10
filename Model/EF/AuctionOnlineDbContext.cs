@@ -1,4 +1,4 @@
-namespace Model.Framework
+namespace Model.EF
 {
     using System;
     using System.Data.Entity;
@@ -8,7 +8,7 @@ namespace Model.Framework
     public partial class AuctionOnlineDbContext : DbContext
     {
         public AuctionOnlineDbContext()
-            : base("name=AuctionOnlineDbContext")
+            : base("name=AuctionOnlineDbContext2")
         {
         }
 
@@ -48,6 +48,10 @@ namespace Model.Framework
 
             modelBuilder.Entity<SanPhamDauGia>()
                 .Property(e => e.TenDN_NguoiBan)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SanPhamDauGia>()
+                .Property(e => e.HinhAnh)
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()

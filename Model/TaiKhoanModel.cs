@@ -1,4 +1,4 @@
-﻿using Model.Framework;
+﻿using Model.EF;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

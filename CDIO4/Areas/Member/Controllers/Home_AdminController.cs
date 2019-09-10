@@ -1,5 +1,6 @@
 ﻿using CDIO4.Areas.Member.Models;
 using CDIO4.Common;
+using CDIO4.Dao;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace CDIO4.Areas.Member.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var sanPhamDao = new SanPhamDao();
+            ViewBag.SanPham = sanPhamDao.ListSpDauGia();
+            
             return View();
         }
 
@@ -43,5 +47,13 @@ namespace CDIO4.Areas.Member.Controllers
             Session[Common.CommonStants.USER_SESSION] = null;
             return Redirect("Index");
         }
+
+        public ActionResult Delete(int id)
+        {
+            new SanPhamDao().Delete(id);
+
+            return RedirectToAction("Index");
+        }
+      
     }
 }

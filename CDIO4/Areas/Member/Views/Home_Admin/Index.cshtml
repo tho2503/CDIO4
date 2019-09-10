@@ -1,6 +1,10 @@
 ﻿
 @{
     Layout = null;
+    var listSanPham = (List<Model.EF.SanPhamDauGia>)ViewBag.SanPham;
+    
+
+
 }
 @model  CDIO4.Areas.Member.Models.DangNhapModel      
 <!DOCTYPE html>
@@ -18,8 +22,8 @@
     <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
+    
     <style>
-        
     </style>
 </head>
 <body id="page-top">
@@ -135,13 +139,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="~/Images/hinh1.jpg" alt="Slide 1">
+                    <img class="d-block w-100" src="~/Assets/Images_Banner/hinh1.jpg" alt="Slide 1">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="~/Images/hinh2.jpg" alt="Slide 2">
+                    <img class="d-block w-100" src="~/Assets/Images_Banner/hinh2.jpg" alt="Slide 2">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="~/Images/hinh3.jpg" alt="Slide 3">
+                    <img class="d-block w-100" src="~/Assets/Images_Banner/hinh3.jpg" alt="Slide 3">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#Slide" role="button" data-slide="prev">
@@ -157,14 +161,58 @@
         <div class="container d-flex justify-content-center">
             <div class="border border-primary text-center py-2 d-block" id="Catogery-button">
                 <a onclick="">
-                    <img src="~/Images/All-Category.jpg" style="width:35px; height:35px" />
+                    <img src="~/Assets/Images_Banner/All-Category.jpg" style="width:35px; height:35px" />
                     Tất cả sản phẩm
                 </a>
             </div>
         </div>
+        <div class="container w-50 p-2" id="List_Item">
+            <div class="row justify-content-center py-2">
+                @foreach (var item in listSanPham)
+                {                  
+                <div class="col-2">
+                    <div class="card">
+                        <a href="#"><img src="@item.HinhAnh" class="card-img-top" alt="@item.TenSP" /></a>
+                        <div class="card-body text-center" id="test">
+                            <p id="@item.TenSP" style="color: red;"></p>
+                            <br />
+                            <a class="card-text">@item.GiaDuKien</a>
+                            <script type="text/javascript">                               
+                                var x_@item.ID_SanPham = setInterval(function () {
+                                    var time_@item.ID_SanPham = new Date("@item.HanDauGia").getTime();
+                                    var now_@item.ID_SanPham = new Date().getTime();
+                                    var distance_@item.ID_SanPham = time_@item.ID_SanPham - now_@item.ID_SanPham;
+
+                                    var days = Math.floor(distance_@item.ID_SanPham / (1000 * 60 * 60 * 24));
+                                    var hours_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    var minutes_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60)) / (1000 * 60));
+                                    var seconds_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60)) / 1000);
+
+                                    var c = document.createComment("My personal comments");
+                                            document.body.appendChild(c);
+                                    var a = document.getElementById("@item.TenSP");
+                                    a.innerHTML = hours_@item.ID_SanPham + "h " + minutes_@item.ID_SanPham + "m " + seconds_@item.ID_SanPham + "s ";
+
+                                    if (distance_@item.ID_SanPham < 0) {
+                                        var c = document.createComment("My personal comments");
+                                        document.body.appendChild(c);
+                                        var a = document.getElementById("@item.TenSP");
+                                        a.innerHTML = "Kết thúc";
+                                        clearInterval(x_@item.ID_SanPham);
+                                    }                         
+                                    },1000);                  
+                            </script>
+                        </div>
+                    </div>
+                    
+                </div>
+                    
+                }
+            </div>
+        </div>
     </div>
 
-    <footer class="footer bg-primary">
+    <footer class="footer bg-primary mt-2">
         <div class="container">
             <div class="copyright text-center">
                 <span>Copyright © Your Website 2019</span>
@@ -176,7 +224,9 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Đăng nhập</h3>
+                    <div class="container">
+                        <h3 class="modal-title text-center">Đăng nhập</h3>
+                    </div>
                 </div>
                 <div class="modal-body">
                     @using (@Html.BeginForm("Login", "Home_Admin", FormMethod.Post))
@@ -224,7 +274,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" type="button" >@Html.ActionLink("Đăng xuất", "Logout", "Home_Admin" , new { @class = "text-white", @style = "text-decoration:none;" })</button>
+                    <button class="btn btn-primary" type="button">@Html.ActionLink("Đăng xuất", "Logout", "Home_Admin", new { @class = "text-white", @style = "text-decoration:none;" })</button>
 
                 </div>
             </div>
@@ -233,7 +283,7 @@
     <!-- Bootstrap core JavaScript-->
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         @if (session == null)
         {
             <text>$(document).ready(function () {
@@ -256,6 +306,7 @@
                     login_button.parentNode.replaceChild(login_account, login_button);
             </text>
         }
-    </script>
+    </script>*@
+    
 </body>
 </html>

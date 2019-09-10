@@ -1,4 +1,4 @@
-namespace Model.Framework
+namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Model.Framework
         [StringLength(255)]
         public string MoTa { get; set; }
 
-        public TimeSpan? ThoigianDaugia { get; set; }
+        public DateTime? HanDauGia { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? GiaDuKien { get; set; }
@@ -43,6 +43,11 @@ namespace Model.Framework
         public int? ID_DanhMuc { get; set; }
 
         public int? ID_PhienDauGia { get; set; }
+
+        [StringLength(50)]
+        public string HinhAnh { get; set; }
+
+        public DateTime? NgayTao { get; set; }
 
         public virtual DanhMuc DanhMuc { get; set; }
 

@@ -134,6 +134,7 @@
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
     <Compile Include="Areas\Member\Models\DangNhapModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Dao\SanPhamDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1751,19 +1752,22 @@
     <Content Include="Assets\Home\vendor\jquery\jquery.min.js" />
     <Content Include="Assets\Home\vendor\jquery\jquery.slim.js" />
     <Content Include="Assets\Home\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="Assets\Images_Product\sanpham.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Home.css" />
+    <Content Include="Content\slider.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\All-Category.jpg" />
-    <Content Include="Images\hinh1.jpg" />
-    <Content Include="Images\hinh2.jpg" />
-    <Content Include="Images\hinh3.jpg" />
+    <Content Include="Assets\Images_Banner\All-Category.jpg" />
+    <Content Include="Assets\Images_Banner\hinh1.jpg" />
+    <Content Include="Assets\Images_Banner\hinh2.jpg" />
+    <Content Include="Assets\Images_Banner\hinh3.jpg" />
     <Content Include="Assets\Home\scss\sb-admin.scss" />
     <Content Include="Assets\Home\scss\_cards.scss" />
     <Content Include="Assets\Home\scss\_footer.scss" />

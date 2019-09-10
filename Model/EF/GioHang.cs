@@ -1,4 +1,4 @@
-namespace Model.Framework
+namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -6,20 +6,16 @@ namespace Model.Framework
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("HoaDon")]
-    public partial class HoaDon
+    [Table("GioHang")]
+    public partial class GioHang
     {
         [Key]
-        public int ID_HoaDon { get; set; }
-
-        public int? ID_SanPham { get; set; }
-
-        public int? ID_PhiendauGia { get; set; }
+        public int ID_GioHang { get; set; }
 
         [StringLength(50)]
-        public string TenDN_HoaDon { get; set; }
+        public string TenDN_GioHang { get; set; }
 
-        public virtual PhienDauGia PhienDauGia { get; set; }
+        public int? ID_SanPham { get; set; }
 
         public virtual SanPhamDauGia SanPhamDauGia { get; set; }
 
