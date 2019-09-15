@@ -17,18 +17,17 @@ namespace Model.EF
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID_PhienDauGia { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? GiaKhoiDiem { get; set; }
-
-        [Column(TypeName = "money")]
-        public decimal? GiaCaoNhat { get; set; }
+        public int? GiaCaoNhat { get; set; }
 
         public int? ID_SanPham { get; set; }
 
         [StringLength(50)]
         public string TenDN_Daugia { get; set; }
+
+        public DateTime? Thoigian { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }

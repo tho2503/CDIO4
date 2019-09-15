@@ -1,0 +1,478 @@
+﻿@model Model.EF.SanPhamDauGia
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "";
+    var phienDauGia = (Model.EF.PhienDauGia)ViewBag.PhienDauGia;
+    var sanPhamLienQuan = (List<Model.EF.SanPhamDauGia>)ViewBag.SanPhamLienQuan;
+    var list = (List<Model.EF.PhienDauGia>)ViewBag.List;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Detail.css" />
+    <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
+    <link href="~/Assets/Home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
+    <style>
+        body{
+            background-color: white;
+        }
+        #Img_SanPhamLienQuan {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+    @{
+        var session = (CDIO4.Common.UserLogin)Session[CDIO4.Common.CommonStants.USER_SESSION];
+    }
+    <div class="navbar navbar-expand navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand ml-md-5 mr-auto" href="index.html">Website Đấu Giá</a>
+            <!--Bar left-->
+            <ul class="navbar-nav pr-5">
+                <li class="nav-item no-arrow mx-1">
+                    <a class="btn text-white" href="#">
+                        <i class="fas fa-shopping-cart fa-fw"></i>
+                        Giỏ hàng
+                    </a>
+                </li>
+                <li class="nav-item no-arrow mx-1">
+                    <a class="btn text-white" href="#">
+                        <i class="fas fa-gavel fa-fw"></i>
+                        Đấu giá của tôi
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
+                </li>
+                <li class="nav-item dropdown no-arrow mx-1" id="login-Account">
+
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw"></i>
+                        @if (session != null)
+                        {
+                            @session.TenDangNhap
+                        }
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Cá nhân</a>
+                        <a class="dropdown-item" href="#">Đơn hàng</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="AuctionFeed">
+        <div id="tabs" class="bg-light">
+            <div class="wrapper">
+                <ul id="List-Catogeries" class="mr-3">
+                    <li>
+                        <a class="active" href="#">KẾT THÚC NGAY</a>
+                    </li>
+                    <li>
+                        <a href="#">CHO NÀNG</a>
+                    </li>
+                    <li>
+                        <a href="#">CHO CHÀNG</a>
+                    </li>
+                    <li>
+                        <a href="#">NHÀ CỬA ĐỜI SỐNG</a>
+                    </li>
+                    <li>
+                        <a href="#">ĐỒ CHƠI VÀ BÉ</a>
+                    </li>
+                    <li>
+                        <a href="#">ĐIỆN TỬ VÀ CÔNG NGHỆ</a>
+                    </li>
+                    <li>
+                        <a href="#">DU LỊCH & THỂ THAO</a>
+                    </li>
+                    <li>
+                        <a href="#">SỨC KHỎE & SẮC ĐẸP</a>
+                    </li>
+                    <li>
+                        <a href="#">Ô TÔ & XE MÁY</a>
+                    </li>
+                    <li>
+                        <a href="#">DỤNG CỤ SỮA CHỮA</a>
+                    </li>
+                    <li>
+                        <a href="#">HÀNG TIÊU DÙNG</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-light mt-3 w-75">
+        <div class="row">
+            <div class="col-5">
+                <img src="@Model.HinhAnh" id="Detail_Image" alt="Hình sản phẩm" />
+            </div>
+            <div class="col-5 pt-3" id="Info_Product">
+                <h1>@Model.TenSP</h1>
+                <br />
+                <h1 style="color:red;" id="TimeEnd"></h1>
+                <script type="text/javascript">
+                    var x = setInterval(function () {
+                        var time = new Date("@Model.HanDauGia").getTime();
+                        var now = new Date().getTime();
+                        var distance = time - now;
+
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        var a = document.getElementById("TimeEnd");
+                        a.innerHTML = hours + ":" + minutes + ":" + seconds;
+
+                        if (distance < 0) {
+                            var a = document.getElementById("TimeEnd");
+                            a.innerHTML = "Kết thúc";
+                            clearInterval(x);
+                        }                
+                    },1000);                          
+                </script>
+                <div class="row py-2">
+                    <div class="col-4 py-2">
+                        <h5 style="text-align:center;">Giá hiện tại</h5>
+                        <p style="color:blue; text-align:center;">@phienDauGia.GiaCaoNhat K</p>
+                    </div>
+                    <div class="col-5 py-2">
+                        <h5 style="text-align:center;">Người đặt cao nhất</h5>
+                        <p style="color:blue; text-align:center;">@phienDauGia.TenDN_Daugia</p>
+                    </div>
+                </div>
+                <hr />
+                <br />
+                <h4>Đấu giá ngay</h4>
+                <br />
+                <div class="row py-2">
+                    <div class="col-5 mr-3">
+                        <span class="Bidding_box">
+                            <em>
+                                <button type="button" class="decreaseBid" id="moins">-</button>
+                            </em>
+                            <span class="BidValue">
+                                <div id="NewBidText" class="CustomSelect">
+                                    @phienDauGia.GiaCaoNhat
+                                </div>
+                            </span>
+                            <em>
+                                <button type="button" class="increaseBid" id="plus">+</button>
+                            </em>
+                        </span>
+                    </div>
+                    <div class="col-5">
+                        <button class="btn btn-primary" id="btn_Bid">Đấu giá</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <section class="text-center" id="sideInfoBar">
+                    <div id="slider-text">
+                        <ul>
+                            <li>
+                                <section class="slider-text-container">
+                                    <i class="far fa-calendar"></i>
+                                    <p>Chính sách đổi trả 30 ngày</p>
+                                </section>
+                            </li>
+                            <li>
+                                <section class="slider-text-container">
+                                    <i class="fas fa-truck"></i>
+                                    <p>Phí giao hàng : 49.000 ₫</p>
+                                </section>
+                            </li>
+                            <li>
+                                <section class="slider-text-container">
+                                    <i class="fas fa-gavel"></i>
+                                    <p>TẤT CẢ SẢN PHẨM BẮT ĐẦU TỪ 1.000 ₫</p>
+                                </section>
+                            </li>
+                            <li>
+                                <section class="slider-text-container">
+                                    <i class="fas fa-phone"></i>
+                                    <p>(028)-36222111</p>
+                                </section>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2 p-3 bg-light w-75" id="content_info">       
+        <div class="row">
+            <div class="col-10 pl-5">
+                <div class="row">
+                    <table class="table m-5">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tên người đấu giá</th>
+                                <th scope="col">Giá thầu</th>
+                                <th scope="col">Ngày giờ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in list)
+                            {
+                                <tr>
+                                    <td>@item.TenDN_Daugia</td>
+                                    <td>@item.GiaCaoNhat</td>
+                                    <td>@item.Thoigian</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <h2 style="color:dodgerblue; font: bold;">Chi tiết Sản phẩm</h2>
+                <div class="row pl-3">
+                    <div class="col-2">
+                        <p>Phiên đấu giá số</p>
+                        <br />
+                        <p>Sản phẩm số</p>
+                    </div>
+                    <div class="col-2">
+                        <p>@phienDauGia.ID_PhienDauGia</p>
+                        <br />
+                        <p>@Model.ID_SanPham</p>
+                    </div>
+                </div>
+                <h2 style="color:black; font: bold;">Mô tả sản phâm</h2>
+                <p>@Model.MoTa</p>
+                <hr />
+                <h2 style="color:dodgerblue; font: bold;">Giao hàng</h2>
+                <p>
+                    Với mỗi hoá đơn, bạn sẽ thanh toán phí vận chuyển và 10% phí dịch vụ
+                    để đảm bảo kiện hàng của bạn được gửi nhanh chóng an toàn. Chilindo hỗ trợ
+                    bạn một phần phí vận chuyển ở mục 'Khuyến mãi' để giúp bạn an tâm mua sắm
+                    thật nhiều với phí vận chuyển tiết kiệm nhất.
+                </p>
+                <hr />
+                <h2 style="color:dodgerblue; font: bold;">Trả lại sản phẩm</h2>
+                <p>
+                    Chính sách đổi trả: Trong vòng 30 ngày kể từ ngày nhận hàng, Chilindo chấp nhậ
+                    n đổi trả tất cả sản phẩm bao gồm thiết bị điện tử, quần áo, giày dép, và hơn thế
+                    nữa. Lưu ý, sản phẩm phải được hoàn trả trong tình trạng ban đầu. Khi đáp ứng được
+                    tình trạng hoàn trả, Chilindo sẽ hoàn lại đầy đủ giá trị sản phẩm, không bao gồm 10%
+                    phí dịch vụ. Người mua hàng chịu trách nhiệm về chi phí phát sinh khi trả hàng (nếu có).
+                </p>
+                <hr />
+
+                <h2 style="color:dodgerblue; font: bold;">Trả lại sản phẩm</h2>
+                <p>
+                    Chúng tôi cung cấp phương thức thanh toán thuận tiện bằng tiền mặt khi nhận hàng và thanh toán an toàn qua chuyển khoản ngân hàng.
+                </p>
+            </div>
+            <div class="col-2">
+                @foreach (var item in sanPhamLienQuan)
+                {
+                <div class="container" style="border: 1px solid #dee2e6;">
+                    <div class="row justify-content-center">
+                        <h4>@item.TenSP</h4>
+                    </div>
+                    <div class="row pb-4">
+                        <div class="col-6">
+                            <img src="@item.HinhAnh" id="Img_SanPhamLienQuan" alt="Hình sản phẩm" />
+                        </div>
+                        <div class="col-6">
+                            <h5 style="color:red;" id="time_SP_@item.ID_SanPham"></h5>
+                            <script>
+                                var now_@item.ID_SanPham = new Date().getTime();
+                                var time_@item.ID_SanPham = new Date("@item.HanDauGia").getTime();
+                                var distance_@item.ID_SanPham = time_@item.ID_SanPham - now_@item.ID_SanPham;
+                                var days_@item.ID_SanPham = Math.floor(distance_@item.ID_SanPham / (1000 * 60 * 60 * 24));
+                                var hours_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                var minutes_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60)) / (1000 * 60));
+                                var seconds_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60)) / 1000);
+                                var a = document.getElementById("time_SP_@item.ID_SanPham");
+                                a.innerHTML = hours_@item.ID_SanPham + ":" + minutes_@item.ID_SanPham + ":" + seconds_@item.ID_SanPham;
+                            </script>
+                            <p>@item.PhienDauGia.GiaCaoNhat K</p>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-gavel">Đặt giá</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>                   
+                }
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer bg-primary mt-2">
+        <div class="container">
+            <div class="copyright text-center">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="CongratDetailWin">
+        <div class="notificationProductDetail">
+            <div id="ContentPlaceHolder1_pnlWinnerPopup">
+                <div class="ShowMsgPopup">
+                    <div class="modal fade" id="dvBidWinnerMessagePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <h1 style="color:red; ">Thông báo</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="cong_wrp" style="">
+                                        <h4>Xin chúc mừng, bạn đã thắng phiên đấu giá!</h4>
+                                        <div class="congWrap">
+                                            <div class="cong_left"><img src="~/Assets/Images_Product/sanpham.jpg" alt="Product" /></div>
+                                            <div class="cong_right">
+                                                <p class="titleProduct"></p>
+                                                <p><span>Giá</span> : </p>
+                                                <p><span>Đấu giá kết thúc</span> : </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-secondary btnDismiss customShadowBorder" data-dismiss="modal">Hủy</a>
+                                    <a class="moreAuctionBtn btn btnAuction btn-primary customShadowBorder" href="/">Phiên đấu giá khác</a>
+                                    <a class="btn btn-primary btnCart customShadowBorder" href="/MyCart.aspx">Giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="DetailLose">
+        <div class="notificationProductDetail">
+            <div id="LoserPopup">
+                <div class="ShowMsgPopup">
+                    <div class="modal fade" id="dvBidLoserMessagePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 style="color:red; ">Thông báo</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="cong_wrp" style="">
+                                        <h2>Rất tiếc, bạn đã thua phiên đấu giá này!</h2>
+                                        <div class="congWrap">
+                                            <div class="cong_left"><img src="~/Assets/Images_Product/sanpham.jpg" alt="Product" /></div>
+                                            <div class="cong_right">
+                                                <p class="NameProduct"></p>
+                                                <p><span>Giá</span> : </p>
+                                                <p><span>Đấu giá kết thúc</span> : </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-secondary btnDismiss customShadowBorder" data-dismiss="modal">Hủy</a>
+                                    <a class="moreAuctionBtn btn btnAuction btn-primary customShadowBorder" href="/">Phiên đấu giá khác</a>
+                                    <a class="btn btn-primary btnCart customShadowBorder" href="/MyCart.aspx">Giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn đăng xuất không?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="button">@Html.ActionLink("Đăng xuất", "Logout", "Home", new { @class = "text-white", @style = "text-decoration:none;" })</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+            var time = document.getElementById("TimeEnd").textContent;
+            if (time == "Kết thúc") {
+                $(document).ready(function () {
+                    $("#dvBidLoserMessagePopup").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                });
+            }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var coin = parseInt(document.getElementById("NewBidText").textContent);
+            var btn_Plus = document.getElementById("plus");
+            var btn_Moin = document.getElementById("moins");
+
+            btn_Plus.onclick = function () {
+                coin = coin + 10;
+                document.getElementById("NewBidText").innerHTML = coin + "K";
+                btn_Moin.disabled = false;
+                if (coin == 11) {
+                    btn_Moin.disabled = false;
+                }
+            };
+
+            btn_Moin.onclick = function () {
+                coin = coin - 10;
+                document.getElementById("NewBidText").innerHTML = coin + "K";
+                if (coin == 1) {
+                    btn_Moin.disabled = true;
+                } else {
+                    btn_Moin.disabled = false;
+                }
+            };
+
+            if (coin == 1) {
+                btn_Moin.disabled = true;
+            } else {
+                btn_Moin.disabled = false;
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        @if (session == null)
+        {
+            <text>
+        var login_button = document.getElementById("Login-Button");
+        var login_account = document.getElementById("login-Account");
+        login_account.parentNode.replaceChild(login_button, login_account);
+            </text>
+        }
+        else
+        {
+            <text>
+        var login_button = document.getElementById("Login-Button");
+        var login_account = document.getElementById("login-Account");
+        login_button.parentNode.replaceChild(login_account, login_button);
+            </text>
+        }
+    </script>
+</body>
+</html>
+

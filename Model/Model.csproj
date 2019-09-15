@@ -58,8 +58,10 @@
     <Compile Include="EF\SanPhamDauGia.cs" />
     <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\TaiKhoan.cs" />
+    <Compile Include="PhienDauGiaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaiKhoanModel.cs" />
+    <Compile Include="UpdateStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

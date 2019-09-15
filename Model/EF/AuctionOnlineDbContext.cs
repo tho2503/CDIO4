@@ -8,7 +8,7 @@ namespace Model.EF
     public partial class AuctionOnlineDbContext : DbContext
     {
         public AuctionOnlineDbContext()
-            : base("name=AuctionOnlineDbContext2")
+            : base("name=AuctionOnlineDbContext4")
         {
         }
 
@@ -31,20 +31,8 @@ namespace Model.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<PhienDauGia>()
-                .Property(e => e.GiaKhoiDiem)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<PhienDauGia>()
-                .Property(e => e.GiaCaoNhat)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<PhienDauGia>()
                 .Property(e => e.TenDN_Daugia)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<SanPhamDauGia>()
-                .Property(e => e.GiaDuKien)
-                .HasPrecision(19, 4);
 
             modelBuilder.Entity<SanPhamDauGia>()
                 .Property(e => e.TenDN_NguoiBan)

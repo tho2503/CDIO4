@@ -1,0 +1,141 @@
+﻿
+.navbar {
+    margin-bottom: 0;
+}
+
+
+#Catogery-button {
+    width: 928px;
+}
+
+#Info_Product {
+    padding: 10px;
+}
+
+#Detail_Image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+#Img_SanPhamLienQuan {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0px;
+}
+
+#sideInfoBar section {
+    height: 25%;
+    border: 1px solid rgb(237, 237, 237);
+    padding: 22px 4px;
+}
+
+ul {
+    list-style: none;
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 30px;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+div{
+    display:block;
+}
+
+.col-2 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+section #slider-text {
+    color: #808080;
+}
+
+.CustomSelect {
+    font-family: roboto,sans-serif;
+    font-size: 20px;
+    color: deepskyblue;
+    font-weight: 600;
+    border: 1px solid #dee2e6;
+    padding: 11px;
+    border-radius: 8px;
+    transition: none;
+    box-sizing: border-box;
+    text-align: center;
+    height: 44px;
+}
+
+.Bidding_box span {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.Bidding_box em:first-child {
+    left: 0;
+    border-right: 1px solid #dee2e6;
+}
+
+.Bidding_box em:last-child {
+    right: 0;
+    border-left: 1px solid #dee2e6;
+}
+
+.Bidding_box {
+    display: inline-block;
+    width: 172px;
+    position: relative;
+    margin: 0 auto;
+    float: left;
+}
+
+    .Bidding_box em {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+        .Bidding_box em button {
+            border: none;
+            background: 0 0;
+            outline: none;
+            cursor: pointer;
+            height: 43px;
+            width: 33px;
+            line-height: 43px;
+            padding: 0;
+            margin: 0;
+            float: left;
+            font-size: 20px;
+            text-align: center;
+            color: deepskyblue;
+        }
+
+#btn_Bid {
+    display: inline-block;
+    width: 172px;
+    height: 44px;
+    position: relative;
+    margin: 0 auto;
+    float: left;
+}
+
+.cong_left {
+    float: left;
+}
+
+.cong_right {
+    padding-top: 30px;
+}

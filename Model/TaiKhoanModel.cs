@@ -29,6 +29,11 @@ namespace Model
             return context.TaiKhoans.SingleOrDefault(x => x.TenDangNhap == tenDangNhap);
         }
 
+        public object Login(string tenDangNhap, object matKhau)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Login(string userName, string passWord)
         {
             object[] sqlParams =

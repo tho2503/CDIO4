@@ -3,23 +3,22 @@
     font-size: 12px;
 }
 
-.footer {
-    position: fixed;
-    font-size: small; 
-    bottom: 0;
+footer {
+    clear: both;
+    position: absolute;
+    height: 30px;
     width: 100%;
-    height: 40px;
-    line-height: 60px;
-    background-color: #f5f5f5;
-    margin-top: 10px;
+    margin-top: -200px;
+    padding-top: 8px;
+    bottom: 0px;
 }
 
 .navbar {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 #AuctionFeed {
-    margin-top: 60px;
+    margin-top: 57px;
     font-size: 12px;
 }
 
@@ -27,34 +26,37 @@
         text-align: center;
     }
 
-        #AuctionFeed #tabs .wrapper {
+        #AuctionFeed #tabs div.wrapper {
             text-align: center;
             font-size: 10px;
             color: #808080;
             display: inline-block;
         }
 
-            #AuctionFeed #tabs .wrapper ul {
+            #AuctionFeed #tabs div.wrapper ul.mr-3 {
                 display: flex;
                 list-style: none;
                 list-style-position: inside;
                 margin-bottom: 5px;
             }
 
-                #AuctionFeed #tabs .wrapper ul li {
+                #AuctionFeed #tabs div.wrapper ul.mr-3 li {
                     margin-right: 10px;
                     padding-right: 5px;
                     border-right: 1px solid #808080;
+                    
                 }
-
+                    #AuctionFeed #tabs div.wrapper ul.mr-3 li a {
+                        color: #808080;
+                    }
+                        #AuctionFeed #tabs div.wrapper ul.mr-3 li a:hover {
+                            text-decoration: none;
+                            
+                        }
 #Catogery-button {
-    width: 928px;
+     width: 928px;
+
 }
 
-#footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    color: white;
-}
+
 

@@ -1,6 +1,5 @@
-﻿using CDIO4.Areas.Member.Models;
-using CDIO4.Common;
-using CDIO4.Dao;
+﻿using CDIO4.Common;
+using CDIO4.Models;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -8,22 +7,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace CDIO4.Areas.Member.Controllers
+namespace CDIO4.Controllers
 {
-    public class Home_AdminController : Controller
+    public class UserController : Controller
     {
-        [HttpGet]
-        public ActionResult Index()
+        // GET: Login
+        public ActionResult Register()
         {
-            var sanPhamDao = new SanPhamDao();
-            ViewBag.SanPham = sanPhamDao.ListSpDauGia();
-            
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(DangNhapModel model)
+        public ActionResult Login(LoginModel model)
         {
             var dao = new TaiKhoanModel();
             var result = dao.Login(model.TenDangNhap, model.MatKhau);
@@ -33,7 +29,7 @@ namespace CDIO4.Areas.Member.Controllers
                 var userSession = new UserLogin();
                 userSession.TenDangNhap = user.TenDangNhap;
                 Session.Add(Common.CommonStants.USER_SESSION, userSession);
-                return RedirectToAction("Index", "Home_Admin");
+                return Redirect("/");
             }
             else
             {
@@ -41,19 +37,5 @@ namespace CDIO4.Areas.Member.Controllers
             }
             return View("Index");
         }
-
-        public ActionResult Logout()
-        {
-            Session[Common.CommonStants.USER_SESSION] = null;
-            return Redirect("Index");
-        }
-
-        public ActionResult Delete(int id)
-        {
-            new SanPhamDao().Delete(id);
-
-            return RedirectToAction("Index");
-        }
-      
     }
 }

@@ -18,12 +18,15 @@ namespace CDIO4.Dao
         {
             return db.SanPhamDauGias.Where(x => x.TrangThai == "Đang đấu giá").OrderBy(x => x.ID_SanPham).ToList();
         }
-
-        public void Delete(int id)
+        public List<SanPhamDauGia> ListSpLienquan (long producId)
         {
-            var item = db.SanPhamDauGias.Find(id);
-            db.SanPhamDauGias.Remove(item);
-            db.SaveChanges();
+            var product = db.SanPhamDauGias.Find(producId);
+            return db.SanPhamDauGias.Where(x => x.ID_SanPham != producId && x.ID_DanhMuc == product.ID_DanhMuc).ToList();
+        }
+
+        public SanPhamDauGia ViewDetail(long id)
+        {
+            return db.SanPhamDauGias.Find(id);
         }
     }
 }

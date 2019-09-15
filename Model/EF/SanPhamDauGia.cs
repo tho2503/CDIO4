@@ -27,13 +27,11 @@ namespace Model.EF
 
         public DateTime? HanDauGia { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? GiaDuKien { get; set; }
+        public int? GiaDuKien { get; set; }
 
         [StringLength(50)]
         public string TrangThai { get; set; }
 
-        [Required]
         [StringLength(255)]
         public string DanhGia { get; set; }
 
