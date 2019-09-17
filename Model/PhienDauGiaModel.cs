@@ -17,16 +17,15 @@ namespace Model
             context = new AuctionOnlineDbContext();
         }
 
-        public int Update_Bidding(int id_sanpham, int id_Phiendaugia, string ten, int tien)
+        public int Update_Bidding(long tien, long id_sanpham, string ten)
         {
             object[] sqlParams =
             {
+                new SqlParameter("@Tien", tien),
                 new SqlParameter("@Id_Sanpham", id_sanpham),
-                new SqlParameter("@Id_Phiendaugia", id_Phiendaugia),
-                new SqlParameter("@Ten", ten),
-                new SqlParameter("@tien", tien)
+                new SqlParameter("@Ten", ten)
             };
-            int res = context.Database.ExecuteSqlCommand("Update_Bidding @Id_Sanpham, @Id_Phiendaugia, @Ten, @tien", sqlParams);
+            int res = context.Database.ExecuteSqlCommand("Update_Bidding @Tien, @Id_Sanpham, @Ten", sqlParams);
             return res;
         }
 
@@ -34,6 +33,7 @@ namespace Model
         {
             var list = context.Database.SqlQuery<PhienDauGia>("List_bidd").ToList();
             return list;
-        }
+
+        }      
     }
 }

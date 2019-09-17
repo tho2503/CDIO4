@@ -17,7 +17,6 @@
     <title>Home</title>
     <!-- Custom fonts for this template-->
     <link href="~/Assets/Home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- Custom styles for this template-->
     <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
@@ -97,7 +96,7 @@
             <div class="row justify-content-center py-2">
                 @foreach (var item in listSanPham)
                 {
-                    var url = "/Home/Detail/" + item.ID_SanPham;
+                    var url = "/Product/Detail/" + item.ID_SanPham;
                     <div class="col-2">
                         <div class="card">
                             <a href="@url"><img src="@item.HinhAnh" class="card-img-top" alt="@item.TenSP" /></a>

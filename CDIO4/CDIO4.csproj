@@ -132,14 +132,17 @@
     <Compile Include="Common\Product.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Areas\Member\MemberAreaRegistration.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Dao\BiddingDao.cs" />
     <Compile Include="Dao\DanhMucSanPhamDao.cs" />
     <Compile Include="Dao\SanPhamDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BiddingModel.cs" />
+    <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UpdateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1969,7 +1972,8 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

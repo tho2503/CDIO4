@@ -18,6 +18,7 @@ namespace Model.EF
         public virtual DbSet<PhienDauGia> PhienDauGias { get; set; }
         public virtual DbSet<SanPhamDauGia> SanPhamDauGias { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Table> Tables { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -41,6 +42,10 @@ namespace Model.EF
             modelBuilder.Entity<SanPhamDauGia>()
                 .Property(e => e.HinhAnh)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Table>()
+                .Property(e => e.Gia)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.TenDangNhap)

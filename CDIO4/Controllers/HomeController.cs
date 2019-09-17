@@ -71,17 +71,6 @@ namespace CDIO4.Controllers
             }
 
             return View("Index");
-        }
-
-        public ActionResult Detail(long id)
-        {
-            var product = new SanPhamDao().ViewDetail(id);
-            ViewBag.PhienDaugia = new BiddingDao().ViewDetail(product.ID_PhienDauGia.Value);
-            ViewBag.SanPhamLienQuan = new SanPhamDao().ListSpLienquan(id);
-            ViewBag.List = new BiddingDao().ListBidding(id);
-
-            return View(product);
-        }
-
+        }       
     }
 }

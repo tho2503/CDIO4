@@ -1,0 +1,328 @@
+﻿@model List<CDIO4.Models.CartModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+    var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Detail.css" />
+    <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
+    <link href="~/Assets/Home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
+    <style>
+        body {
+            background-color: #f2e8e8;
+        }
+
+        #Content {
+            display: flex;
+            margin: auto;
+            height: auto;
+        }
+
+        #Content_info {
+            margin: auto;
+        }
+
+        #container {
+            margin: auto;
+            height: auto;
+        }
+
+        #img_item {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0px;
+        }
+
+        .CustomSelect {
+            font-family: roboto,sans-serif;
+            font-size: 20px;
+            color: deepskyblue;
+            font-weight: 600;
+            border: 1px solid #dee2e6;
+            padding: 11px;
+            border-radius: 10px;
+            transition: none;
+            box-sizing: border-box;
+            text-align: center;
+            height: 44px;
+        }
+
+        .Bidding_box span {
+            display: block;
+            width: 100%;
+            position: relative;
+        }
+
+        .Bidding_box em:first-child {
+            left: 0;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .Bidding_box em:last-child {
+            right: 0;
+            border-left: 1px solid #dee2e6;
+        }
+
+        .Bidding_box {
+            display: inline-block;
+            width: 130px;
+            position: relative;
+            margin: 0 auto;
+            float: left;
+        }
+                      
+    </style>
+</head>
+<body>
+    @{
+        var session = (CDIO4.Common.UserLogin)Session[CDIO4.Common.CommonStants.USER_SESSION];
+    }
+    <div class="navbar navbar-expand navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand ml-md-5 mr-auto" href="index.html">Website Đấu Giá</a>
+            <!--Bar left-->
+            <ul class="navbar-nav pr-5">
+                <li class="nav-item no-arrow mx-1">
+                    <a class="btn text-white" href="#">
+                        <i class="fas fa-shopping-cart fa-fw"></i>
+                        Giỏ hàng
+                    </a>
+                </li>
+                <li class="nav-item no-arrow mx-1">
+                    <a class="btn text-white" href="#">
+                        <i class="fas fa-gavel fa-fw"></i>
+                        Đấu giá của tôi
+                    </a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
+                </li>
+                <li class="nav-item dropdown no-arrow mx-1" id="login-Account">
+
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw">
+                            @if (session != null)
+                            {
+                                @session.TenDangNhap
+                            }
+                        </i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Cá nhân</a>
+                        <a class="dropdown-item" href="#">Đơn hàng</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="AuctionFeed">
+        <div id="tabs" class="bg-light">
+            <div class="wrapper">
+                <ul id="List-Catogeries" class="mr-3">
+                    <li>
+                        <a class="active" href="#">KẾT THÚC NGAY</a>
+                    </li>
+                    <li>
+                        <a href="#">CHO NÀNG</a>
+                    </li>
+                    <li>
+                        <a href="#">CHO CHÀNG</a>
+                    </li>
+                    <li>
+                        <a href="#">NHÀ CỬA ĐỜI SỐNG</a>
+                    </li>
+                    <li>
+                        <a href="#">ĐỒ CHƠI VÀ BÉ</a>
+                    </li>
+                    <li>
+                        <a href="#">ĐIỆN TỬ VÀ CÔNG NGHỆ</a>
+                    </li>
+                    <li>
+                        <a href="#">DU LỊCH & THỂ THAO</a>
+                    </li>
+                    <li>
+                        <a href="#">SỨC KHỎE & SẮC ĐẸP</a>
+                    </li>
+                    <li>
+                        <a href="#">Ô TÔ & XE MÁY</a>
+                    </li>
+                    <li>
+                        <a href="#">DỤNG CỤ SỮA CHỮA</a>
+                    </li>
+                    <li>
+                        <a href="#">HÀNG TIÊU DÙNG</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-3 id="container">
+        <div class="w-75 justify-content-center" id="Content">
+            <div class="col-8 p-3 w-75 bg-white mr-3">
+                <h2 style="font:bold;">Giỏ hàng</h2>
+                <h5 class="text-muted">Giỏ hàng - đang chờ thanh toán</h5>
+
+                <div id="Slide" class="container carousel slide mt-25 w-100" data-ride="carousel" data-interval="6000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#Slide" data-slide-to="0" class="active"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="~/Assets/Images_Banner/hinh1.jpg" alt="Slide 1">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#Slide" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#Slide" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                @if (Model.Count > 0)
+                {
+                    <table class="table table-bordered mt-3 ">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-right">Giá  / <a class="text-primary">Từng phần</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="row w-75">
+                                            <div class="col-3">
+                                                <img src="@item.Product.HinhAnh" id="img_item" />
+                                            </div>
+                                            <div class="col-6">
+                                                <h5>@item.Product.TenSP</h5>
+                                                <a class="label-primary">@item.SoLuong</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">@item.Product.GiaBanRa.GetValueOrDefault(0)K / <a class="text-primary">@(item.Product.GiaBanRa.GetValueOrDefault(0) * 0.1 + item.Product.GiaBanRa.GetValueOrDefault(0))K</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <table class="table table-bordered mt-3 ">
+                        <thead>
+                            <tr class="text-center">
+                                <th><h5>Bạn hiện không có sản phẩm nào trong giỏ hàng</h5></th>                               
+                            </tr>
+                        </thead>                        
+                    </table>
+                }                
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="p-3 bg-white h-100">
+                    <div class="col pl-2">
+                        <h4>Tóm tắt đơn hàng</h4>
+                        <div class="row py-2">
+                            <div class="col-8 py-2">
+                                <a>Giao hàng</a>
+                                <br />
+                                <br />
+                                <a>Tổng</a>
+                            </div>
+                            <br />
+                            <div class="col-4 py-2">
+                                <a style="color:deepskyblue">35K</a>
+                                <br />
+                                <br />
+                                <a style="color:deepskyblue">@(item.Product.GiaBanRa.GetValueOrDefault(0) * 10 % +item.Product.GiaBanRa.GetValueOrDefault(0) + 35)K</a>
+                            </div>
+                        </div>
+                        <div class="col-12 pl-3">
+                            <a class="btn btn-success">
+                                <i class="fas fa-shopping-cart">Hoàn tất ngay</i>
+                            </a>
+                        </div>
+                        <br />
+                        <a class="text-muted">
+                            <i class="fas fa-truck"></i>
+                            Giao hàng toàn quốc | từ 49.000đ
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="container mt-4 bg-white" id="Content_info" style="font-size:13px;">
+            <div class="row">
+                <div class="col-4 border">
+                    <div class="p-4">
+                        <a style="font:bold;">KHI NÀO TÔI NHẬN ĐƯỢC HÀNG?</a>
+                        <br />
+                        <a class="text-muted">Trong vòng 1-3 ngày làm việc</a>
+                    </div>
+                </div>
+                <div class="col-4 border">
+                    <div class="p-4">
+                        <a style="font:bold;">ĐIỀU KHOẢN HOÀN TRẢ CỦA CHILINDO LÀ GÌ?</a>
+                        <br />
+                        <a class="text-muted">Nếu bạn không hài lòng với kiện hàng, bạn có thể hoàn lại trong vòng 30 ngày</a>
+                    </div>
+                </div>
+                <div class="col-4 border">
+                    <div class="p-4">
+                        <a style="font:bold;">THAY ĐỔI ĐƠN HÀNG?</a>
+                        <br />
+                        <a class="text-muted">Gọi cho chúng tôi theo số (028)-36222111</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+    </div>
+
+    <footer class="footer bg-primary mt-2">
+        <div class="container">
+            <div class="copyright text-center">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        @if (session == null)
+        {
+            <text>
+        var login_button = document.getElementById("Login-Button");
+        var login_account = document.getElementById("login-Account");
+        login_account.parentNode.replaceChild(login_button, login_account);
+            </text>
+        }
+        else
+        {
+            <text>
+        var login_button = document.getElementById("Login-Button");
+        var login_account = document.getElementById("login-Account");
+        login_button.parentNode.replaceChild(login_account, login_button);
+            </text>
+        }
+    </script>
+</body>
+</html>

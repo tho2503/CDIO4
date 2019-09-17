@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = "Detail";
     Layout = "";
-    var phienDauGia = (Model.EF.PhienDauGia)ViewBag.PhienDauGia;
     var sanPhamLienQuan = (List<Model.EF.SanPhamDauGia>)ViewBag.SanPhamLienQuan;
     var list = (List<Model.EF.PhienDauGia>)ViewBag.List;
+    var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
 }
 
 <!DOCTYPE html>
@@ -17,9 +17,10 @@
     <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
     <style>
-        body{
+        body {
             background-color: white;
         }
+
         #Img_SanPhamLienQuan {
             width: 100%;
             height: 100%;
@@ -55,11 +56,12 @@
                 <li class="nav-item dropdown no-arrow mx-1" id="login-Account">
 
                     <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle fa-fw"></i>
-                        @if (session != null)
-                        {
-                            @session.TenDangNhap
-                        }
+                        <i class="fas fa-user-circle fa-fw">
+                            @if (session != null)
+                            {
+                                @session.TenDangNhap
+                            }
+                        </i>                       
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Cá nhân</a>
@@ -126,6 +128,8 @@
                         var time = new Date("@Model.HanDauGia").getTime();
                         var now = new Date().getTime();
                         var distance = time - now;
+                        var tenNT = document.getElementById("tennguoithang").textContent;
+                        var tenDN = "@session.TenDangNhap";
 
                         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -138,45 +142,68 @@
                         if (distance < 0) {
                             var a = document.getElementById("TimeEnd");
                             a.innerHTML = "Kết thúc";
+                            if (tenNT == tenDN) {
+                                $(document).ready(function () {
+                                    $("#dvBidWinnerMessagePopup").modal({
+                                        backdrop: 'static',
+                                        keyboard: false
+                                    });
+                                });
+                            } else {
+                                $(document).ready(function () {
+                                    $("#dvBidLoserMessagePopup").modal({
+                                        backdrop: 'static',
+                                        keyboard: false
+                                    });
+                                });
+                            }                                                                                                                                                
                             clearInterval(x);
-                        }                
-                    },1000);                          
+                        }
+
+                    },1000);
                 </script>
                 <div class="row py-2">
-                    <div class="col-4 py-2">
-                        <h5 style="text-align:center;">Giá hiện tại</h5>
-                        <p style="color:blue; text-align:center;">@phienDauGia.GiaCaoNhat K</p>
-                    </div>
-                    <div class="col-5 py-2">
-                        <h5 style="text-align:center;">Người đặt cao nhất</h5>
-                        <p style="color:blue; text-align:center;">@phienDauGia.TenDN_Daugia</p>
-                    </div>
+                    
+                        <div class="col-4 py-2">
+                            <h5 style="text-align:center;">Giá hiện tại</h5>
+                            <p style="color:blue; text-align:center;" id="Get_Coin">@topBid.GiaCaoNhat K</p>
+                        </div>
+                        <div class="col-5 py-2">
+                            <h5 style="text-align:center;">Người đặt cao nhất</h5>
+                            <p style="color:blue; text-align:center;" id="tennguoithang">@topBid.TenDN_Daugia</p>
+                        </div>
+                    
                 </div>
                 <hr />
                 <br />
                 <h4>Đấu giá ngay</h4>
                 <br />
-                <div class="row py-2">
-                    <div class="col-5 mr-3">
-                        <span class="Bidding_box">
-                            <em>
-                                <button type="button" class="decreaseBid" id="moins">-</button>
-                            </em>
-                            <span class="BidValue">
-                                <div id="NewBidText" class="CustomSelect">
-                                    @phienDauGia.GiaCaoNhat
-                                </div>
+                <div class="row py-2">                  
+                        <div class="col-5 mr-3">
+                            <span class="Bidding_box">
+                                <em>
+                                    <button type="button" class="decreaseBid" id="moins">-</button>
+                                </em>
+                                <span class="BidValue">
+                                    <div id="NewBidText" class="CustomSelect">
+  
+                                    </div>                                   
+                                </span>
+                                <em>
+                                    <button type="button" class="increaseBid" id="plus">+</button>
+                                </em>
                             </span>
-                            <em>
-                                <button type="button" class="increaseBid" id="plus">+</button>
-                            </em>
-                        </span>
-                    </div>
-                    <div class="col-5">
-                        <button class="btn btn-primary" id="btn_Bid">Đấu giá</button>
+                        </div>                   
+                        <div class="col-5">
+                            <a href="" class="btn btn-primary" id="btn_Bid" type="submit" >Đấu giá</a>
+                        </div>
+                        <script>
+                            var tien = document.getElementById("Get_Coin").textContent();
+                            var url = /Product/Bidding?tien="tien"&id=@Model.ID_SanPham&ten=@session.TenDangNhap;
+                            document.getElementById("btn_Bid").href = url; 
+                        </script>
                     </div>
                 </div>
-            </div>
             <div class="col-2">
                 <section class="text-center" id="sideInfoBar">
                     <div id="slider-text">
@@ -211,7 +238,7 @@
             </div>
         </div>
     </div>
-    <div class="container mt-2 p-3 bg-light w-75" id="content_info">       
+    <div class="container mt-2 p-3 bg-light w-75" id="content_info">
         <div class="row">
             <div class="col-10 pl-5">
                 <div class="row">
@@ -243,7 +270,7 @@
                         <p>Sản phẩm số</p>
                     </div>
                     <div class="col-2">
-                        <p>@phienDauGia.ID_PhienDauGia</p>
+                        <p></p>
                         <br />
                         <p>@Model.ID_SanPham</p>
                     </div>
@@ -277,17 +304,18 @@
             <div class="col-2">
                 @foreach (var item in sanPhamLienQuan)
                 {
-                <div class="container" style="border: 1px solid #dee2e6;">
-                    <div class="row justify-content-center">
-                        <h4>@item.TenSP</h4>
-                    </div>
-                    <div class="row pb-4">
-                        <div class="col-6">
-                            <img src="@item.HinhAnh" id="Img_SanPhamLienQuan" alt="Hình sản phẩm" />
+                    var Url = "/Product/Detail/" + item.ID_SanPham;
+                    <div class="container" style="border: 1px solid #dee2e6;">
+                        <div class="row justify-content-center">
+                            <h4>@item.TenSP</h4>
                         </div>
-                        <div class="col-6">
-                            <h5 style="color:red;" id="time_SP_@item.ID_SanPham"></h5>
-                            <script>
+                        <div class="row pb-4">
+                            <div class="col-6">
+                                <img src="@item.HinhAnh" id="Img_SanPhamLienQuan" alt="Hình sản phẩm" />
+                            </div>
+                            <div class="col-6">
+                                <h5 style="color:red;" id="time_SP_@item.ID_SanPham"></h5>
+                                <script>
                                 var now_@item.ID_SanPham = new Date().getTime();
                                 var time_@item.ID_SanPham = new Date("@item.HanDauGia").getTime();
                                 var distance_@item.ID_SanPham = time_@item.ID_SanPham - now_@item.ID_SanPham;
@@ -297,19 +325,17 @@
                                 var seconds_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60)) / 1000);
                                 var a = document.getElementById("time_SP_@item.ID_SanPham");
                                 a.innerHTML = hours_@item.ID_SanPham + ":" + minutes_@item.ID_SanPham + ":" + seconds_@item.ID_SanPham;
-                            </script>
-                            <p>@item.PhienDauGia.GiaCaoNhat K</p>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-gavel">Đặt giá</i>
-                            </button>
+                                </script>
+                                <p>@item.GiaDuKien K</p>
+                                <a href="@Url" class="btn btn-primary"><i class="fas fa-gavel">Đặt giá</i></a>
+                            </div>
                         </div>
                     </div>
-                </div>                   
                 }
             </div>
         </div>
     </div>
-
+                
     <footer class="footer bg-primary mt-2">
         <div class="container">
             <div class="copyright text-center">
@@ -344,7 +370,7 @@
                                 <div class="modal-footer">
                                     <a class="btn btn-secondary btnDismiss customShadowBorder" data-dismiss="modal">Hủy</a>
                                     <a class="moreAuctionBtn btn btnAuction btn-primary customShadowBorder" href="/">Phiên đấu giá khác</a>
-                                    <a class="btn btn-primary btnCart customShadowBorder" href="/MyCart.aspx">Giỏ hàng</a>
+                                    <a class="btn btn-primary btnCart customShadowBorder" href="/Cart/AddItem?id=@Model.ID_SanPham&soluong=1">Giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -380,7 +406,6 @@
                                 <div class="modal-footer">
                                     <a class="btn btn-secondary btnDismiss customShadowBorder" data-dismiss="modal">Hủy</a>
                                     <a class="moreAuctionBtn btn btnAuction btn-primary customShadowBorder" href="/">Phiên đấu giá khác</a>
-                                    <a class="btn btn-primary btnCart customShadowBorder" href="/MyCart.aspx">Giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -409,51 +434,57 @@
         </div>
     </div>
 
+    <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-            var time = document.getElementById("TimeEnd").textContent;
-            if (time == "Kết thúc") {
-                $(document).ready(function () {
-                    $("#dvBidLoserMessagePopup").modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                });
-            }
+    <script type="text/javascript">   
+        var time = new Date().getTime;
+
+        if (@topBid.TenDN_Daugia == @session.TenDangNhap && @Model.HanDauGia < time) {
+            $(document).ready(function () {
+                $("#dvBidLoserMessagePopup").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                }); 
+            });          
+        }
     </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var coin = parseInt(document.getElementById("NewBidText").textContent);
-            var btn_Plus = document.getElementById("plus");
-            var btn_Moin = document.getElementById("moins");
-
-            btn_Plus.onclick = function () {
-                coin = coin + 10;
-                document.getElementById("NewBidText").innerHTML = coin + "K";
-                btn_Moin.disabled = false;
-                if (coin == 11) {
-                    btn_Moin.disabled = false;
-                }
-            };
-
-            btn_Moin.onclick = function () {
-                coin = coin - 10;
-                document.getElementById("NewBidText").innerHTML = coin + "K";
-                if (coin == 1) {
-                    btn_Moin.disabled = true;
-                } else {
-                    btn_Moin.disabled = false;
-                }
-            };
-
-            if (coin == 1) {
+    <script type="text/javascript">       
+            $(document).ready(function() {
+                var coin = parseInt(document.getElementById("Get_Coin").textContent);
+                var btn_Plus = document.getElementById("plus");
+                var btn_Moin = document.getElementById("moins");
+                var newbid = document.getElementById("NewBidText");
+                newbid.innerHTML = coin + "K";
                 btn_Moin.disabled = true;
-            } else {
-                btn_Moin.disabled = false;
-            }
-        });
+
+                btn_Plus.onclick = function() {
+                    coin = coin + 5;
+                    newbid.innerHTML = coin + "K";
+                    btn_Moin.disabled = false;
+                    document.getElementById("btn_Bid").href = "/Product/Bidding?tien="+coin+"&id=@Model.ID_SanPham&ten=@session.TenDangNhap";
+                    if (coin > @topBid.GiaCaoNhat)
+                    {
+                        btn_Moin.disabled = false;
+                    }
+                };
+
+                btn_Moin.onclick = function() {     
+                    coin = coin - 5;
+                    newbid.innerHTML = coin + "K";
+                    document.getElementById("btn_Bid").href = "/Product/Bidding?tien="+coin+"&id=@Model.ID_SanPham&ten=@session.TenDangNhap";
+                    if (coin == @topBid.GiaCaoNhat)
+                    {
+                        btn_Moin.disabled = true;
+                    }
+                    else
+                    {
+                        btn_Moin.disabled = false;
+                    }
+                };
+
+            });    
     </script>
     <script type="text/javascript">
         @if (session == null)
@@ -475,4 +506,3 @@
     </script>
 </body>
 </html>
-

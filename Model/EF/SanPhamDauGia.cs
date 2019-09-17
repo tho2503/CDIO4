@@ -40,12 +40,12 @@ namespace Model.EF
 
         public int? ID_DanhMuc { get; set; }
 
-        public int? ID_PhienDauGia { get; set; }
-
         [StringLength(50)]
         public string HinhAnh { get; set; }
 
         public DateTime? NgayTao { get; set; }
+
+        public int? GiaBanRa { get; set; }
 
         public virtual DanhMuc DanhMuc { get; set; }
 
@@ -54,8 +54,6 @@ namespace Model.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
-
-        public virtual PhienDauGia PhienDauGia { get; set; }
 
         public virtual TaiKhoan TaiKhoan { get; set; }
     }
