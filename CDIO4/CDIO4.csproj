@@ -137,12 +137,14 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Dao\BiddingDao.cs" />
     <Compile Include="Dao\DanhMucSanPhamDao.cs" />
+    <Compile Include="Dao\HoaDonDao.cs" />
     <Compile Include="Dao\SanPhamDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BiddingModel.cs" />
     <Compile Include="Models\CartModel.cs" />
+    <Compile Include="Models\HoaDonChiTietDao.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UpdateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1952,6 +1954,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controller\CartController.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -1974,6 +1977,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shared\ThongBao.cshtml" />
+    <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\Finish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

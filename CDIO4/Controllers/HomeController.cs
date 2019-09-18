@@ -21,7 +21,7 @@ namespace CDIO4.Controllers
         {
             var sanpham = new SanPhamDao();
             ViewBag.SanPham = sanpham.ListSpDauGia();
-                    
+
             return View();
         }
       
@@ -72,5 +72,18 @@ namespace CDIO4.Controllers
 
             return View("Index");
         }       
+
+        [ChildActionOnly]
+        public PartialViewResult ThongBao()
+        {
+            var cartItem = Session[Common.CommonStants.CartSession];
+            var list = new List<CartModel>();
+            if (cartItem != null)
+            {
+                list = (List<CartModel>)cartItem;
+            }
+
+            return PartialView(list);
+        }
     }
 }

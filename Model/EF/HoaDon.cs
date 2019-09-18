@@ -12,17 +12,21 @@ namespace Model.EF
         [Key]
         public int ID_HoaDon { get; set; }
 
-        public int? ID_SanPham { get; set; }
-
-        public int? ID_PhiendauGia { get; set; }
+        public DateTime? NgayTao { get; set; }
 
         [StringLength(50)]
-        public string TenDN_HoaDon { get; set; }
+        public string TenDN { get; set; }
 
-        public virtual PhienDauGia PhienDauGia { get; set; }
+        [StringLength(50)]
+        public string Ten_Ship { get; set; }
 
-        public virtual SanPhamDauGia SanPhamDauGia { get; set; }
+        [StringLength(50)]
+        public string SDT { get; set; }
 
-        public virtual TaiKhoan TaiKhoan { get; set; }
+        [StringLength(255)]
+        public string DiaChi { get; set; }
+
+        [StringLength(50)]
+        public string Email { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null;
 }
-@model CDIO4.Models.LoginModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +17,38 @@
     <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
-    
 
+    <style>
+        #Information{
+            width: 600px;
+            margin-top: 30px;
+            padding: 30px;
+            margin-left: 500px;
+        }
+        #Support {
+            margin-top: 80px;
+        }      
+        
+        .content {
+            display: flex;
+        }
+
+        .st1, .st2 {
+            margin: 0px;
+            padding: 10px;
+            background-color: #15a7f1;
+            color: white;
+            font-weight: bold;
+        }
+        .st3 {
+            margin: 0px;
+            padding: 10px;
+            color: #15a7f1;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body id="page-top" style="background:#f5e7e7;">
+<body id="page-top">
     @{
         var session = (CDIO4.Common.UserLogin)Session[CDIO4.Common.CommonStants.USER_SESSION];
     }
@@ -33,14 +60,14 @@
                 <li class="nav-item no-arrow mx-1">
                     <a class="btn text-white" href="/Cart/Index">
                         <i class="fas fa-shopping-cart fa-fw"></i>
-                        Giỏ hàng                       
+                        Giỏ hàng
                         @{ Html.RenderAction("ThongBao", "Home");}
                     </a>
                 </li>
                 <li class="nav-item no-arrow mx-1">
                     <a class="btn text-white" href="#">
                         <i class="fas fa-gavel fa-fw"></i>
-                        Đấu giá của tôi                       
+                        Đấu giá của tôi
                     </a>
                 </li>
                 <li class="nav-item mx-1">
@@ -106,7 +133,69 @@
             </div>
         </div>
     </div>
-    @RenderBody()
+
+    <div class="content">
+        <div id="Information">
+            <h1 style="font:bold;">Thanh toán</h1>
+            <h5 style="font:bold;">Địa chỉ gửi hàng</h5>
+            @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+            {
+                <form class="py-4">
+                    <div class="form-group row ">
+                        <label for="TenDG" class="col-2 col-form-label">Tên người thắng</label>
+                        <div class="col-10">
+                            <input name="tendg" type="text" class="form-control" id="TenDG" value="@session.TenDangNhap" />
+                        </div>
+                    </div>
+                    <div class="form-group row ">
+                        <label for="Ten" class="col-2 col-form-label">Họ tên</label>
+                        <div class="col-10">
+                            <input name="ten" type="text" class="form-control" id="Ten" placeholder="Họ và tên" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="sdt" class="col-2 col-form-label">Số điện thoại</label>
+                        <div class="col-10">
+                            <input name="sdt" type="text" class="form-control" id="sdt" placeholder="Số điện thoại" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="DiaChi" class="col-2 col-form-label">Địa chỉ</label>
+                        <div class="col-10">
+                            <input name="diachi" type="text" class="form-control" id="DiaChi" placeholder="Số nhà/ Tên đường/ Phường/Quận/ Thành phố" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-2 col-form-label">Email</label>
+                        <div class="col-10">
+                            <input name="email" type="text" class="form-control" id="email" placeholder="Email" />
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                    </div>
+                </form>
+            }
+        </div>
+        <div id="Support">
+            <div class="border border-primary rounded w-75">
+                <h4 style="font:bold;" class="st1">Có câu hỏi?</h4>
+                <p class="st2">Vui lòng liên hệ bộ phận hỗ trợ 24 giờ của chúng tôi.</p>
+                <p class="st3">Sdt. (028)-36222111</p>
+            </div>
+            <div class="border border-primary rounded w-75 mt-3">
+                <h4 style="font:bold;" class="st1">Tổng kết đơn hàng</h4>
+                <div class="row m-0" style="height:50px; width:215px; border-bottom: 1px solid #15a7f1">
+                    <div class="col-9 mb-0 pt-1"><p class="mb-0" style="font-weight: bold; color:#15a7f1;">Giao hàng tiêu chuẩn - giao hàng tận nơi.</p></div>
+                    <div class="col-3 mb-0 pt-1"><p class="mb-0" style="font-weight: bold; color:#15a7f1;">35K</p></div>
+                </div>
+                <div class="row m-0" style="height: 40px; width:215px;">
+                    <div class="col-9  mb-0 pt-2"><p class="mb-0" style="font-weight: bold; color:red;">Số tiền cần thanh toán</p></div>
+                    <div class="col-3 mb-0 pt-2"><p class="mb-0" style="font-weight: bold; color:red;">0000</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer bg-primary mt-2">
         <div class="container">
@@ -115,94 +204,26 @@
             </div>
         </div>
     </footer>
-
-    <div class="modal fade" role="dialog" id="loginModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="container">
-                        <h3 class="modal-title text-center">Đăng nhập</h3>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    @using (@Html.BeginForm("Login", "Home", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                @Html.TextBoxFor(model => model.TenDangNhap, new { @class = "form-control", @Type = "text", @id = "inputEmail", @placeholder = "Email address", @autofocus = "autofocus" })
-                                <label for="inputEmail">User Name</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                @Html.TextBoxFor(model => model.MatKhau, new { @class = "form-control", @Type = "password", @id = "inputPassword", @placeholder = "Password" })
-                                <label for="inputPassword">Password</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    @Html.CheckBoxFor(model => model.NhoMatKhau)
-                                    Remember Password
-                                </label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn đăng xuất không?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" type="button">@Html.ActionLink("Đăng xuất", "Logout", "Home", new { @class = "text-white", @style = "text-decoration:none;" })</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript">
         @if (session == null)
         {
-            <text>$(document).ready(function () {
-                    $("#loginModal").modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                    var login_button = document.getElementById("Login-Button");
-                    var login_account = document.getElementById("login-Account");
-                    login_account.parentNode.replaceChild(login_button, login_account);
-                });
+            <text>
+        var login_button = document.getElementById("Login-Button");
+        var login_account = document.getElementById("login-Account");
+        login_account.parentNode.replaceChild(login_button, login_account);
             </text>
         }
         else
         {
             <text>
-                    $('loginModal').attr("disabled", true);
-                    var login_button = document.getElementById("Login-Button");
-                    var login_account = document.getElementById("login-Account");
-                    login_button.parentNode.replaceChild(login_account, login_button);
+        var login_button = document.getElementById("Login-Button");
+        var login_account = document.getElementById("login-Account");
+        login_button.parentNode.replaceChild(login_account, login_button);
             </text>
         }
     </script>
-
-    @RenderSection("JsFooter", required: false)
 </body>
 </html>

@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Finish";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <style>
+        #Information {
+            width: 600px;
+            margin-top: 80px;
+            padding: 30px;
+            margin-left: 500px;
+            margin-right: 20px;
+            background-color: white;
+
+        }
+
+        #Support {
+            margin-top: 80px;
+        }
+
+        .content {
+            display: flex;
+        }
+
+        .st1, .st2 {
+            margin: 0px;
+            padding: 10px;
+            background-color: #15a7f1;
+            color: white;
+            font-weight: bold;
+        }
+
+        .st3 {
+            margin: 0px;
+            padding: 10px;
+            color: #15a7f1;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="Information">
+            <h4 class="alert alert-success mt-2">Đã gửi thông tin đến người bán - Bạn sẽ thanh toán khi nhận sản phẩm</h4>
+            <a class="btn btn-primary" style="margin-left:210px;" href="/">Tiếp tục đấu giá</a>
+        </div>
+        <div id="Support">
+            <div class="border border-primary rounded w-75">
+                <h4 style="font:bold;" class="st1">Có câu hỏi?</h4>
+                <p class="st2">Vui lòng liên hệ bộ phận hỗ trợ 24 giờ của chúng tôi.</p>
+                <p class="st3">Sdt. (076)9982157</p>
+            </div>
+            <div class="border border-primary rounded w-75 mt-3">
+                <h4 style="font:bold;" class="st1">Thòi gian giao hàng</h4>
+                <div class="row m-0" style="height:70px; width:215px; border-bottom: 1px solid #15a7f1">
+                    <div class="col-9 mb-0 pt-1"><p class="mb-0" style="font-weight: bold; color:#15a7f1;">Giao hàng tiêu chuẩn - giao hàng tận nơi. Trong vòng 2-3 ngày</p></div>
+                </div>
+                <div class="row m-0" style="height: 70px; width:215px;">
+                    <div class="col-9  mb-0 pt-2"><p class="mb-0" style="font-weight: bold; color:red;">Nếu muốn hủy đơn hàng này. Vui lòng liên hệ Sdt. (076)9982157</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

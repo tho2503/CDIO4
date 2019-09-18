@@ -1,13 +1,15 @@
 ﻿@model List<CDIO4.Models.CartModel>
 @{
-    ViewBag.Title = "Index";
-    Layout = "";
-    var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
+                ViewBag.Title = "Index";
+                Layout = null;
+                var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
 }
-
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <link type="text/css" rel="stylesheet" href="~/Content/Detail.css" />
     <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
     <link href="~/Assets/Home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,14 +20,14 @@
             background-color: #f2e8e8;
         }
 
-        #Content {
-            display: flex;
+#Content {
+        display: flex;
             margin: auto;
             height: auto;
         }
 
-        #Content_info {
-            margin: auto;
+#Content_info {
+    margin: auto;
         }
 
         #container {
@@ -55,10 +57,10 @@
         }
 
         .Bidding_box span {
-            display: block;
-            width: 100%;
-            position: relative;
-        }
+        display: block;
+        width: 100%;
+        position: relative;
+    }
 
         .Bidding_box em:first-child {
             left: 0;
@@ -77,7 +79,6 @@
             margin: 0 auto;
             float: left;
         }
-                      
     </style>
 </head>
 <body>
@@ -214,7 +215,14 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-right">@item.Product.GiaBanRa.GetValueOrDefault(0)K / <a class="text-primary">@(item.Product.GiaBanRa.GetValueOrDefault(0) * 0.1 + item.Product.GiaBanRa.GetValueOrDefault(0))K</a></td>
+                                    <td class="text-right">
+                                        @item.Product.GiaBanRa.GetValueOrDefault(0)K / <a class="text-primary">@(item.Product.GiaBanRa.GetValueOrDefault(0) * 0.1 + item.Product.GiaBanRa.GetValueOrDefault(0))K</a>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <a href="#" data-id="@item.Product.ID_SanPham" id="Delete"><i class="fas fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -225,11 +233,17 @@
                     <table class="table table-bordered mt-3 ">
                         <thead>
                             <tr class="text-center">
-                                <th><h5>Bạn hiện không có sản phẩm nào trong giỏ hàng</h5></th>                               
+                                <th><h5>Bạn hiện không có sản phẩm nào trong giỏ hàng</h5></th>
                             </tr>
-                        </thead>                        
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center"><button id="test" class="btn btn-primary">Trở về trang chủ</button></td>
+                            </tr>                       
+                        </tbody>
                     </table>
-                }                
+
+                }
             </div>
             @foreach (var item in Model)
             {
@@ -252,7 +266,7 @@
                             </div>
                         </div>
                         <div class="col-12 pl-3">
-                            <a class="btn btn-success">
+                            <a class="btn btn-success" href="/Cart/Payment">
                                 <i class="fas fa-shopping-cart">Hoàn tất ngay</i>
                             </a>
                         </div>
@@ -292,10 +306,6 @@
         </div>
     </div>
 
-    <div class="container">
-
-    </div>
-
     <footer class="footer bg-primary mt-2">
         <div class="container">
             <div class="copyright text-center">
@@ -303,7 +313,7 @@
             </div>
         </div>
     </footer>
-
+  
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript">
@@ -324,5 +334,6 @@
             </text>
         }
     </script>
+    <script src="/Scripts/Controller/CartController.js"></script>
 </body>
 </html>

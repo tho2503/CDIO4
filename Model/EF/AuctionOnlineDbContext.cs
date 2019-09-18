@@ -8,13 +8,13 @@ namespace Model.EF
     public partial class AuctionOnlineDbContext : DbContext
     {
         public AuctionOnlineDbContext()
-            : base("name=AuctionOnlineDbContext4")
+            : base("name=AutionOnlineDbContext4")
         {
         }
 
         public virtual DbSet<DanhMuc> DanhMucs { get; set; }
-        public virtual DbSet<GioHang> GioHangs { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
+        public virtual DbSet<HoaDon_ChiTiet> HoaDon_ChiTiet { get; set; }
         public virtual DbSet<PhienDauGia> PhienDauGias { get; set; }
         public virtual DbSet<SanPhamDauGia> SanPhamDauGias { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
@@ -23,12 +23,12 @@ namespace Model.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GioHang>()
-                .Property(e => e.TenDN_GioHang)
+            modelBuilder.Entity<HoaDon>()
+                .Property(e => e.TenDN)
                 .IsUnicode(false);
 
             modelBuilder.Entity<HoaDon>()
-                .Property(e => e.TenDN_HoaDon)
+                .Property(e => e.SDT)
                 .IsUnicode(false);
 
             modelBuilder.Entity<PhienDauGia>()
@@ -58,16 +58,6 @@ namespace Model.EF
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<TaiKhoan>()
-                .HasMany(e => e.GioHangs)
-                .WithOptional(e => e.TaiKhoan)
-                .HasForeignKey(e => e.TenDN_GioHang);
-
-            modelBuilder.Entity<TaiKhoan>()
-                .HasMany(e => e.HoaDons)
-                .WithOptional(e => e.TaiKhoan)
-                .HasForeignKey(e => e.TenDN_HoaDon);
 
             modelBuilder.Entity<TaiKhoan>()
                 .HasMany(e => e.PhienDauGias)

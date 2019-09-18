@@ -52,8 +52,8 @@
   <ItemGroup>
     <Compile Include="EF\AuctionOnlineDbContext.cs" />
     <Compile Include="EF\DanhMuc.cs" />
-    <Compile Include="EF\GioHang.cs" />
     <Compile Include="EF\HoaDon.cs" />
+    <Compile Include="EF\HoaDon_ChiTiet.cs" />
     <Compile Include="EF\PhienDauGia.cs" />
     <Compile Include="EF\SanPhamDauGia.cs" />
     <Compile Include="EF\sysdiagram.cs" />

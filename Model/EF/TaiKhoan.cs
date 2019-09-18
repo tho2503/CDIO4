@@ -12,8 +12,6 @@ namespace Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TaiKhoan()
         {
-            GioHangs = new HashSet<GioHang>();
-            HoaDons = new HashSet<HoaDon>();
             PhienDauGias = new HashSet<PhienDauGia>();
             SanPhamDauGias = new HashSet<SanPhamDauGia>();
         }
@@ -37,12 +35,6 @@ namespace Model.EF
         public string Email { get; set; }
 
         public int? SDT { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GioHang> GioHangs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDons { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhienDauGia> PhienDauGias { get; set; }

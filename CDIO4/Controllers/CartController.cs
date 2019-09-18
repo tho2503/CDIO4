@@ -68,5 +68,64 @@ namespace CDIO4.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public JsonResult Delete(long id)
+        {
+            var sessionCart = (List<CartModel>)Session[CartSession];
+            sessionCart.RemoveAll(x => x.Product.ID_SanPham == id);
+            Session[CartSession] = sessionCart;
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        [HttpGet]
+        public ActionResult Payment()
+        {
+            var cart = Session[CartSession];
+            var list = new List<CartModel>();
+            if(cart != null)
+            {
+                list = (List<CartModel>)cart;
+            }
+
+            return View(list);
+        }
+        public ActionResult Payment(string tendg, string ten, string sdt, string diachi, string email)
+        {
+            try
+            {
+                var hd = new HoaDon();
+                hd.NgayTao = DateTime.Now;
+                hd.TenDN = tendg;
+                hd.Ten_Ship = ten;
+                hd.SDT = sdt;
+                hd.DiaChi = diachi;
+                hd.Email = email;
+                var id = new HoaDonDao().Insert(hd);
+                var cart = (List<CartModel>)Session[CartSession];
+                var hdct = new HoaDonChiTietDao();
+                foreach (var item in cart)
+                {
+                    var detail_hd = new HoaDon_ChiTiet();
+                    detail_hd.ID_SanPham = item.Product.ID_SanPham;
+                    detail_hd.ID_HoaDon = id;
+                    detail_hd.Gia = (item.Product.GiaBanRa / 10) + item.Product.GiaBanRa;
+                    detail_hd.SoLuong = item.SoLuong;
+                    hdct.Insert(detail_hd);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/Cart/failure");
+            }                       
+            return Redirect("/Cart/Finish");
+        }
+
+        public ActionResult Finish()
+        {
+            return View();
+        }
     }
 }
