@@ -17,7 +17,8 @@ namespace CDIO4.Controllers
         {
             var cart = Session[CartSession];
             var list = new List<CartModel>();
-            
+            ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
+
             if (cart != null)
             {
                 list = (List<CartModel>)cart;
@@ -116,7 +117,7 @@ namespace CDIO4.Controllers
                     hdct.Insert(detail_hd);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return Redirect("/Cart/failure");
             }                       

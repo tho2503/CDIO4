@@ -21,6 +21,7 @@ namespace CDIO4.Controllers
         {
             var sanpham = new SanPhamDao();
             ViewBag.SanPham = sanpham.ListSpDauGia();
+            ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
 
             return View();
         }
@@ -85,5 +86,6 @@ namespace CDIO4.Controllers
 
             return PartialView(list);
         }
+       
     }
 }

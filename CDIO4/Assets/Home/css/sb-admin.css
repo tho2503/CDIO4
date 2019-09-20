@@ -10834,8 +10834,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  display: block;
-  width: 100%;
   margin-bottom: 0;
   /* Override default `<label>` margin */
   line-height: 1.5;

@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lichSuDG = (List<Model.EF.PhienDauGia>)ViewBag.LichSuDG;
+    var dsDangdauGia = (List<Model.EF.SanPhamDauGia>)ViewBag.DSDangDG;
+    var dsThang = (List<Model.EF.SanPhamDauGia>)ViewBag.DSThang;
+}
+
+@{
+    var session = (CDIO4.Common.UserLogin)Session[CDIO4.Common.CommonStants.USER_SESSION];
+}
+
+<script src="~/Assets/Bs 4/js/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/popper.min.js"></script>
+<script src="~/Assets/Bs 4/js/bootstrap.min.js"></script>
+
+<div class="container w-50 mt-3" style="font-size:17px;">
+    <h2 style="color:black;">Đấu giá của tôi</h2>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item" style="background-color:#ebe1e1;">
+            <a class="nav-link active" data-toggle="tab" href="#list1">Đang đấu thầu</a>                    
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#list2">Đã thắng thầu</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#list3">Lịch sử đấu giá</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="list1" class="container tab-pane active border" style="padding:0;">
+            <table class="table text-center">
+                <thead style="background-color:#ebe1e1;">
+                    <tr>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">ID sản phẩm</th>
+                        <th scope="col">Giá thầu của bạn</th>
+                        <th scope="col">Hoàn thành</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (dsDangdauGia.Count > 0)
+                    {
+                        foreach (var item in dsDangdauGia)
+                        {
+                            var url = "/Product/Detail/" + @item.ID_SanPham;
+                            <tr>
+                                <th><a href="@url">1</a></th>
+                                <td><a href="@url">@item.ID_SanPham</a><br /><a>@item.TenSP</a></td>
+                                <td><a href="@url">@(item.GiaBanRa)K</a></td>
+                                <td><a href="@url">@item.NgayTao</a></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>Trống</th>
+                            <td>Trống</td>
+                            <td>Trống</td>
+                            <td>Trống</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="list2" class="container tab-pane border" style="padding:0;">
+            <table class="table text-center">
+                <thead style="background-color:#ebe1e1;">
+                    <tr>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">ID sản phẩm</th>
+                        <th scope="col">Giá thầu của bạn</th>
+                        <th scope="col">Hoàn thành</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (dsThang.Count > 0)
+                    {
+                        foreach (var item in dsThang)
+                        {
+                            var url = "/Product/Detail/"+ @item.ID_SanPham;
+                            <tr>
+                                <th><a href="@url">1</a></th>
+                                <td><a href="@url">@item.ID_SanPham</a><br /><a>@item.TenSP</a></td>
+                                <td><a href="@url">@(item.GiaBanRa)K</a></td>
+                                <td><a href="@url">@item.NgayTao</a></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>Trống</th>
+                            <td>Trống</td>
+                            <td>Trống</td>
+                            <td>Trống</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="list3" class="container tab-pane fade border" style="padding:0;">
+            <table class="table text-center">
+                <thead style="background-color:#ebe1e1;">
+                    <tr>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">ID sản phẩm</th>
+                        <th scope="col">Giá thầu của bạn</th>
+                        <th scope="col">Hoàn thành</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (lichSuDG.Count > 0)
+                    {
+                        foreach (var item in lichSuDG)
+                        {
+                            <tr>
+                                <th>1</th>
+                                <td>@item.ID_SanPham</td>
+                                <td><a style="color:deepskyblue;">Auction:[@item.ID_PhienDauGia]</a><br />@(item.GiaCaoNhat)K</td>
+                                <td>@item.Thoigian</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <th>Trống</th>
+                            <td>Trống</td>
+                            <td>Trống</td>
+                            <td>Trống</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

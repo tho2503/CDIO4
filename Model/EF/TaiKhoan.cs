@@ -13,7 +13,6 @@ namespace Model.EF
         public TaiKhoan()
         {
             PhienDauGias = new HashSet<PhienDauGia>();
-            SanPhamDauGias = new HashSet<SanPhamDauGia>();
         }
 
         [Key]
@@ -38,8 +37,5 @@ namespace Model.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhienDauGia> PhienDauGias { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SanPhamDauGia> SanPhamDauGias { get; set; }
     }
 }

@@ -6,6 +6,7 @@
     var sanPhamLienQuan = (List<Model.EF.SanPhamDauGia>)ViewBag.SanPhamLienQuan;
     var list = (List<Model.EF.PhienDauGia>)ViewBag.List;
     var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
+    var listDanhMuc = (List<Model.EF.DanhMuc>)ViewBag.DanhMuc;
 }
 
 <!DOCTYPE html>
@@ -18,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
     <style>
         body {
-            background-color: white;
+           color: black;
         }
 
         #Img_SanPhamLienQuan {
@@ -35,7 +36,7 @@
     }
     <div class="navbar navbar-expand navbar-dark bg-primary fixed-top">
         <div class="container">
-            <a class="navbar-brand ml-md-5 mr-auto" href="index.html">Website Đấu Giá</a>
+            <a class="navbar-brand ml-md-5 mr-auto" href="/">Website Đấu Giá</a>
             <!--Bar left-->
             <ul class="navbar-nav pr-5">
                 <li class="nav-item no-arrow mx-1">
@@ -80,36 +81,16 @@
                     <li>
                         <a class="active" href="#">KẾT THÚC NGAY</a>
                     </li>
-                    <li>
-                        <a href="#">CHO NÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">CHO CHÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">NHÀ CỬA ĐỜI SỐNG</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐỒ CHƠI VÀ BÉ</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐIỆN TỬ VÀ CÔNG NGHỆ</a>
-                    </li>
-                    <li>
-                        <a href="#">DU LỊCH & THỂ THAO</a>
-                    </li>
-                    <li>
-                        <a href="#">SỨC KHỎE & SẮC ĐẸP</a>
-                    </li>
-                    <li>
-                        <a href="#">Ô TÔ & XE MÁY</a>
-                    </li>
-                    <li>
-                        <a href="#">DỤNG CỤ SỮA CHỮA</a>
-                    </li>
-                    <li>
-                        <a href="#">HÀNG TIÊU DÙNG</a>
-                    </li>
+                    @if (listDanhMuc != null)
+                    {
+                        foreach (var item in listDanhMuc)
+                        {
+                            var url = "/Category/Index/" + item.MoTa;
+                            <li>
+                                <a href="@url">@item.TenDanhMuc</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -169,8 +150,8 @@
                             <p style="color:blue; text-align:center;" id="Get_Coin">@topBid.GiaCaoNhat K</p>
                         </div>
                         <div class="col-5 py-2">
-                            <h5 style="text-align:center;">Người đặt cao nhất</h5>
-                            <p style="color:blue; text-align:center;" id="tennguoithang">@topBid.TenDN_Daugia</p>
+                            <h5 style="text-align:center; font-weight:bold;">Người đặt cao nhất</h5>
+                            <p style="color:blue; text-align:center; font-weight:bold;" id="tennguoithang">@topBid.TenDN_Daugia</p>
                         </div>
                     
                 </div>
@@ -358,10 +339,10 @@
                                     <div class="cong_wrp" style="">
                                         <h4>Xin chúc mừng, bạn đã thắng phiên đấu giá!</h4>
                                         <div class="congWrap">
-                                            <div class="cong_left"><img src="~/Assets/Images_Product/sanpham.jpg" alt="Product" /></div>
+                                            <div class="cong_left"><img src="@Model.HinhAnh" alt="Product" /></div>
                                             <div class="cong_right">
-                                                <p class="titleProduct"></p>
-                                                <p><span>Giá</span> : </p>
+                                                <p class="titleProduct">@Model.TenSP</p>
+                                                <p><span>Giá</span> : @Model.GiaBanRa</p>
                                                 <p><span>Đấu giá kết thúc</span> : </p>
                                             </div>
                                         </div>
@@ -394,10 +375,10 @@
                                     <div class="cong_wrp" style="">
                                         <h2>Rất tiếc, bạn đã thua phiên đấu giá này!</h2>
                                         <div class="congWrap">
-                                            <div class="cong_left"><img src="~/Assets/Images_Product/sanpham.jpg" alt="Product" /></div>
+                                            <div class="cong_left"><img src="@Model.HinhAnh" alt="Product" /></div>
                                             <div class="cong_right">
-                                                <p class="NameProduct"></p>
-                                                <p><span>Giá</span> : </p>
+                                                <p class="NameProduct">@Model.TenSP</p>
+                                                <p><span>Giá</span> : @Model.GiaBanRa</p>
                                                 <p><span>Đấu giá kết thúc</span> : </p>
                                             </div>
                                         </div>
@@ -434,28 +415,16 @@
         </div>
     </div>
 
-    <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">   
-        var time = new Date().getTime;
-
-        if (@topBid.TenDN_Daugia == @session.TenDangNhap && @Model.HanDauGia < time) {
-            $(document).ready(function () {
-                $("#dvBidLoserMessagePopup").modal({
-                    backdrop: 'static',
-                    keyboard: false
-                }); 
-            });          
-        }
-    </script>
-
+    <script src="~/Assets/Home/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script type="text/javascript">       
             $(document).ready(function() {
                 var coin = parseInt(document.getElementById("Get_Coin").textContent);
                 var btn_Plus = document.getElementById("plus");
                 var btn_Moin = document.getElementById("moins");
                 var newbid = document.getElementById("NewBidText");
+                coin = coin + 1;
                 newbid.innerHTML = coin + "K";
                 btn_Moin.disabled = true;
 

@@ -8,7 +8,7 @@ namespace Model.EF
     public partial class AuctionOnlineDbContext : DbContext
     {
         public AuctionOnlineDbContext()
-            : base("name=AutionOnlineDbContext4")
+            : base("name=AuctionOnlineDbContext")
         {
         }
 
@@ -23,6 +23,15 @@ namespace Model.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DanhMuc>()
+                .Property(e => e.MoTa)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DanhMuc>()
+                .HasMany(e => e.SanPhamDauGias)
+                .WithOptional(e => e.DanhMuc)
+                .HasForeignKey(e => e.TenDanhMuc);
+
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.TenDN)
                 .IsUnicode(false);
@@ -36,11 +45,15 @@ namespace Model.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<SanPhamDauGia>()
-                .Property(e => e.TenDN_NguoiBan)
+                .Property(e => e.TenDanhMuc)
                 .IsUnicode(false);
 
             modelBuilder.Entity<SanPhamDauGia>()
                 .Property(e => e.HinhAnh)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SanPhamDauGia>()
+                .Property(e => e.NguoiThang)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Table>()
@@ -63,11 +76,6 @@ namespace Model.EF
                 .HasMany(e => e.PhienDauGias)
                 .WithOptional(e => e.TaiKhoan)
                 .HasForeignKey(e => e.TenDN_Daugia);
-
-            modelBuilder.Entity<TaiKhoan>()
-                .HasMany(e => e.SanPhamDauGias)
-                .WithOptional(e => e.TaiKhoan)
-                .HasForeignKey(e => e.TenDN_NguoiBan);
         }
     }
 }

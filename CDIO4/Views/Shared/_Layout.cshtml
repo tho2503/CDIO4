@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    var listDanhMuc = (List<Model.EF.DanhMuc>)ViewBag.DanhMuc;
 }
 @model CDIO4.Models.LoginModel
 
@@ -9,19 +10,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <title>Home</title>
     <!-- Custom fonts for this template-->
-    <link href="~/Assets/Home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <!-- Custom styles for this template-->
-    <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
     
-
+    <link rel="stylesheet" type="text/css" href="~/Assets/Bs 4/css/bootstrap.css" />
+    <link href="~/Assets/Home/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Assets/Home/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/Home.css" />
+    <style>
+        body {
+            color: black;
+        }
+    </style>
 </head>
-<body id="page-top" style="background:#f5e7e7;">
+<body id="page-top;">
     @{
         var session = (CDIO4.Common.UserLogin)Session[CDIO4.Common.CommonStants.USER_SESSION];
     }
@@ -33,27 +35,37 @@
                 <li class="nav-item no-arrow mx-1">
                     <a class="btn text-white" href="/Cart/Index">
                         <i class="fas fa-shopping-cart fa-fw"></i>
-                        Giỏ hàng                       
+                        Giỏ hàng
                         @{ Html.RenderAction("ThongBao", "Home");}
                     </a>
                 </li>
                 <li class="nav-item no-arrow mx-1">
-                    <a class="btn text-white" href="#">
-                        <i class="fas fa-gavel fa-fw"></i>
-                        Đấu giá của tôi                       
-                    </a>
+                    @if (session != null)
+                    {
+                        <a class="btn text-white" id="mybidd" href="/MyBidding/Index?ten=@session.TenDangNhap">
+                            <i class="fas fa-gavel fa-fw"></i>
+                            Đấu giá của tôi
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn text-white" id="mybidd" href="">
+                            <i class="fas fa-gavel fa-fw"></i>
+                            Đấu giá của tôi
+                        </a>
+                    }
                 </li>
                 <li class="nav-item mx-1">
                     <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
                 </li>
                 <li class="nav-item dropdown no-arrow mx-1" id="login-Account">
-
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle fa-fw"></i>
-                        @if (session != null)
-                        {
-                            @session.TenDangNhap
-                        }
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw">
+                            @if (session != null)
+                            {
+                                @session.TenDangNhap
+                            }
+                        </i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Cá nhân</a>
@@ -72,36 +84,16 @@
                     <li>
                         <a class="active" href="#">KẾT THÚC NGAY</a>
                     </li>
-                    <li>
-                        <a href="#">CHO NÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">CHO CHÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">NHÀ CỬA ĐỜI SỐNG</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐỒ CHƠI VÀ BÉ</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐIỆN TỬ VÀ CÔNG NGHỆ</a>
-                    </li>
-                    <li>
-                        <a href="#">DU LỊCH & THỂ THAO</a>
-                    </li>
-                    <li>
-                        <a href="#">SỨC KHỎE & SẮC ĐẸP</a>
-                    </li>
-                    <li>
-                        <a href="#">Ô TÔ & XE MÁY</a>
-                    </li>
-                    <li>
-                        <a href="#">DỤNG CỤ SỮA CHỮA</a>
-                    </li>
-                    <li>
-                        <a href="#">HÀNG TIÊU DÙNG</a>
-                    </li>
+                    @if (listDanhMuc != null)
+                    {
+                        foreach (var item in listDanhMuc)
+                        {
+                            var url = "/Category/Index?tendanhmuc=" + item.MoTa;
+                            <li>
+                                <a href="@url">@item.TenDanhMuc</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -116,58 +108,16 @@
         </div>
     </footer>
 
-    <div class="modal fade" role="dialog" id="loginModal">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="container">
-                        <h3 class="modal-title text-center">Đăng nhập</h3>
-                    </div>
-                </div>
-                <div class="modal-body">
-                    @using (@Html.BeginForm("Login", "Home", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                @Html.TextBoxFor(model => model.TenDangNhap, new { @class = "form-control", @Type = "text", @id = "inputEmail", @placeholder = "Email address", @autofocus = "autofocus" })
-                                <label for="inputEmail">User Name</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                @Html.TextBoxFor(model => model.MatKhau, new { @class = "form-control", @Type = "password", @id = "inputPassword", @placeholder = "Password" })
-                                <label for="inputPassword">Password</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    @Html.CheckBoxFor(model => model.NhoMatKhau)
-                                    Remember Password
-                                </label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="color:black;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn đăng xuất không?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" >Bạn muốn đăng xuất không?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
                     <button class="btn btn-primary" type="button">@Html.ActionLink("Đăng xuất", "Logout", "Home", new { @class = "text-white", @style = "text-decoration:none;" })</button>
@@ -176,13 +126,116 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="color:black;">
+                    <h4 class="modal-title" id="myModalLabel" style="margin:auto;">WebSite Đấu giá</h4>
+                </div>
+                <div class="modal-body" style="color:black;">
+                    <div role="tabpanel">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#form1">Đăng nhập</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#form2">Đăng ký</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div id="form1" class="container tab-pane active mt-2" style="padding:0;">
+                                @using (@Html.BeginForm("Login", "Home", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            @Html.TextBoxFor(model => model.TenDangNhap, new { @class = "form-control", @Type = "text", @id = "inputEmail", @placeholder = "Email address", @autofocus = "autofocus" })
+                                            <label for="inputEmail">User Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-label-group">
+                                            @Html.TextBoxFor(model => model.MatKhau, new { @class = "form-control", @Type = "password", @id = "inputPassword", @placeholder = "Password" })
+                                            <label for="inputPassword">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label style="color:black;">
+                                                @Html.CheckBoxFor(model => model.NhoMatKhau)
+                                                Remember Password
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                                    </div>
+                                }
+                            </div>
+                            <div id="form2" class="container tab-pane border" style="padding:5px;">
+                                @using (Html.BeginForm("", "", FormMethod.Post))
+                                {
+                                <form class="py-4">
+                                    <div class="form-group row ">
+                                        <label for="TenDN" class="col-3 col-form-label">Tên đăng nhập</label>
+                                        <div class="col-9">
+                                            <input name="tendn" type="text" class="form-control" id="TenDN" placeholder="UserName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label for="MatKhau" class="col-3 col-form-label">Họ tên</label>
+                                        <div class="col-9">
+                                            <input name="mk" type="text" class="form-control" id="MatKhau" placeholder="Password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="hoten" class="col-3 col-form-label">Họ và tên</label>
+                                        <div class="col-9">
+                                            <input name="hoten" type="text" class="form-control" id="sdt" placeholder="YourName" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="DiaChi" class="col-3 col-form-label">Địa chỉ</label>
+                                        <div class="col-9">
+                                            <input name="diachi" type="text" class="form-control" id="DiaChi" placeholder="Address" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-3 col-form-label">Email</label>
+                                        <div class="col-9">
+                                            <input name="email" type="text" class="form-control" id="email" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="sdt" class="col-3 col-form-label">Số điện thoại</label>
+                                        <div class="col-9">
+                                            <input name="email" type="text" class="form-control" id="sdt" placeholder="Phone Number" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row justify-content-center">
+                                        <button type="submit" class="btn btn-primary">Xác nhận</button>
+                                    </div>
+                                </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="~/Assets/Home/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Assets/Home/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script type="text/javascript">
         @if (session == null)
         {
             <text>$(document).ready(function () {
-                    $("#loginModal").modal({
+                    $("#myModal").modal({
                         backdrop: 'static',
                         keyboard: false
                     });
@@ -195,7 +248,7 @@
         else
         {
             <text>
-                    $('loginModal').attr("disabled", true);
+                    $('#myModal').attr("disabled", true);
                     var login_button = document.getElementById("Login-Button");
                     var login_account = document.getElementById("login-Account");
                     login_button.parentNode.replaceChild(login_account, login_button);

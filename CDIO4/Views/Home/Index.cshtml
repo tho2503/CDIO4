@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var listSanPham = (List<Model.EF.SanPhamDauGia>)ViewBag.SanPham;
+    
 }
 @model CDIO4.Models.UpdateModel
 
@@ -94,44 +95,45 @@
 
         <div class="container w-50 p-2" id="List_Item">
             <div class="row justify-content-center py-2">
-                @foreach (var item in listSanPham)
+                @if (listSanPham != null)
                 {
-                    var url = "/Product/Detail/" + item.ID_SanPham;
-                    <div class="col-2">
-                        <div class="card">
-                            <a href="@url"><img src="@item.HinhAnh" class="card-img-top" alt="@item.TenSP" /></a>
-                            <div class="card-body text-center" id="test">
-                                <p id="@item.TenSP" style="color: red;"></p>
-                                <br />
-                                <a class="card-text">@item.GiaDuKien</a>
-                                <script type="text/javascript">
+                    foreach (var item in listSanPham)
+                    {
+                        var url = "/Product/Detail/" + item.ID_SanPham;
+                        <div class="col-2">
+                            <div class="card">
+                                <a href="@url"><img src="@item.HinhAnh" class="card-img-top" alt="@item.TenSP" /></a>
+                                <div class="card-body text-center" id="test">
+                                    <a id="time_@item.ID_SanPham" style="color: red; font-size:15px;"></a>
+                                    <br />
+                                    <a class="card-text" style="color: deepskyblue;">
+                                        <i class="fas fa-gavel"> @(item.GiaDuKien)K</i>
+                                    </a>
+                                    <script type="text/javascript">
+                                    var x_@item.ID_SanPham = setInterval(function () {
+                                        var time_@item.ID_SanPham = new Date("@item.HanDauGia").getTime();
+                                        var now_@item.ID_SanPham = new Date().getTime();
+                                        var distance_@item.ID_SanPham = time_@item.ID_SanPham - now_@item.ID_SanPham;
 
-                                var x_@item.ID_SanPham = setInterval(function () {
-                                    var time_@item.ID_SanPham = new Date("@item.HanDauGia").getTime();
-                                    var now_@item.ID_SanPham = new Date().getTime();
-                                    var distance_@item.ID_SanPham = time_@item.ID_SanPham - now_@item.ID_SanPham;
+                                        var days = Math.floor(distance_@item.ID_SanPham / (1000 * 60 * 60 * 24));
+                                        var hours_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        var minutes_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60)) / (1000 * 60));
+                                        var seconds_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60)) / 1000);
 
-                                    var days = Math.floor(distance_@item.ID_SanPham / (1000 * 60 * 60 * 24));
-                                    var hours_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                    var minutes_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60 * 60)) / (1000 * 60));
-                                    var seconds_@item.ID_SanPham = Math.floor((distance_@item.ID_SanPham % (1000 * 60)) / 1000);
+                                        var a = document.getElementById("time_@item.ID_SanPham");
+                                        a.innerHTML = hours_@item.ID_SanPham + ":" + minutes_@item.ID_SanPham + ":" + seconds_@item.ID_SanPham;
 
-                                    var c = document.createComment("My personal comments");
-                                            document.body.appendChild(c);
-                                    var a = document.getElementById("@item.TenSP");
-                                    a.innerHTML = hours_@item.ID_SanPham + ":" + minutes_@item.ID_SanPham + ":" + seconds_@item.ID_SanPham;
-
-                                    if (distance_@item.ID_SanPham < 0) {
-                                        var a = document.getElementById("@item.TenSP");
-                                        a.innerHTML = "Kết thúc";
-                                        clearInterval(x_@item.ID_SanPham);
-                                    }
+                                        if (distance_@item.ID_SanPham < 0) {
+                                            var a = document.getElementById("time_@item.ID_SanPham");
+                                            a.innerHTML = "Kết thúc";
+                                            clearInterval(x_@item.ID_SanPham);
+                                        }
                                     },1000);
-                                </script>
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <script type="text/javascript">
+                        <script type="text/javascript">
                         var y = setInterval(function () {
                             var time_@item.ID_SanPham = new Date("@item.HanDauGia").getTime();
                             var now_@item.ID_SanPham = new Date().getTime();
@@ -142,17 +144,14 @@
                             }
 
                         }, 4000);
-                    </script>
+                        </script>
 
-                    using (Html.BeginForm("Update", "Home", FormMethod.Post, new { id = "Form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
-
-                        @Html.TextBoxFor(model => model.IDSanPham, new { @id = item.ID_SanPham, @type = "text", @style = "display:none;" });
-                        <button type="submit" id="submit_Reload_@item.ID_SanPham" style="display:none;">submit</button>
+                        using (Html.BeginForm("Update", "Home", FormMethod.Post))
+                        {                          
+                            @Html.TextBoxFor(model => model.IDSanPham, new { @id = item.ID_SanPham, @type = "text", @style = "display:none;" });
+                            <button type="submit" id="submit_Reload_@item.ID_SanPham" style="display:none;">submit</button>
+                        }
                     }
-
                 }
             </div>
         </div>

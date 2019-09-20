@@ -1,5 +1,6 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listDanhMuc = (List<Model.EF.DanhMuc>)ViewBag.DanhMuc;
 }
 
 <!DOCTYPE html>
@@ -54,7 +55,7 @@
     }
     <div class="navbar navbar-expand navbar-dark bg-primary fixed-top">
         <div class="container">
-            <a class="navbar-brand ml-md-5 mr-auto" href="/" ref="nofollow">Website Đấu Giá</a>
+            <a class="navbar-brand ml-md-5 mr-auto" href="/Home/Index" ref="nofollow">Website Đấu Giá</a>
             <!--Bar left-->
             <ul class="navbar-nav pr-5">
                 <li class="nav-item no-arrow mx-1">
@@ -99,36 +100,16 @@
                     <li>
                         <a class="active" href="#">KẾT THÚC NGAY</a>
                     </li>
-                    <li>
-                        <a href="#">CHO NÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">CHO CHÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">NHÀ CỬA ĐỜI SỐNG</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐỒ CHƠI VÀ BÉ</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐIỆN TỬ VÀ CÔNG NGHỆ</a>
-                    </li>
-                    <li>
-                        <a href="#">DU LỊCH & THỂ THAO</a>
-                    </li>
-                    <li>
-                        <a href="#">SỨC KHỎE & SẮC ĐẸP</a>
-                    </li>
-                    <li>
-                        <a href="#">Ô TÔ & XE MÁY</a>
-                    </li>
-                    <li>
-                        <a href="#">DỤNG CỤ SỮA CHỮA</a>
-                    </li>
-                    <li>
-                        <a href="#">HÀNG TIÊU DÙNG</a>
-                    </li>
+                    @if (listDanhMuc != null)
+                    {
+                        foreach (var item in listDanhMuc)
+                        {
+                            var url = "/Category/Index?tendanhmuc=" + item.MoTa;
+                            <li>
+                                <a href="@url">@item.TenDanhMuc</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>

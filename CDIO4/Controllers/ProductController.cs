@@ -13,7 +13,6 @@ namespace CDIO4.Controllers
 {
     public class ProductController : Controller
     {
-        AuctionOnlineDbContext db = new AuctionOnlineDbContext();
         // GET: Product
         public ActionResult Detail(long id)
         {          
@@ -21,6 +20,8 @@ namespace CDIO4.Controllers
             ViewBag.SanPhamLienQuan = new SanPhamDao().ListSpLienquan(id);
             ViewBag.List = new BiddingDao().ListBidding(id);
             ViewBag.BidTop = new BiddingDao().BiddTop(id);
+            ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
+
             return View(product);
         }
 

@@ -1,8 +1,9 @@
 ﻿@model List<CDIO4.Models.CartModel>
 @{
-                ViewBag.Title = "Index";
-                Layout = null;
-                var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
+    ViewBag.Title = "Index";
+    Layout = null;
+    var topBid = (Model.EF.PhienDauGia)ViewBag.BidTop;
+    var listDanhMuc = (List<Model.EF.DanhMuc>)ViewBag.DanhMuc;
 }
     
 <!DOCTYPE html>
@@ -87,20 +88,30 @@
     }
     <div class="navbar navbar-expand navbar-dark bg-primary fixed-top">
         <div class="container">
-            <a class="navbar-brand ml-md-5 mr-auto" href="index.html">Website Đấu Giá</a>
+            <a class="navbar-brand ml-md-5 mr-auto" href="/">Website Đấu Giá</a>
             <!--Bar left-->
             <ul class="navbar-nav pr-5">
                 <li class="nav-item no-arrow mx-1">
-                    <a class="btn text-white" href="#">
+                    <a class="btn text-white" href="/Cart/Index">
                         <i class="fas fa-shopping-cart fa-fw"></i>
                         Giỏ hàng
                     </a>
                 </li>
                 <li class="nav-item no-arrow mx-1">
-                    <a class="btn text-white" href="#">
-                        <i class="fas fa-gavel fa-fw"></i>
-                        Đấu giá của tôi
-                    </a>
+                    @if (session != null)
+                    {
+                        <a class="btn text-white" id="mybidd" href="/MyBidding/Index?ten=@session.TenDangNhap">
+                            <i class="fas fa-gavel fa-fw"></i>
+                            Đấu giá của tôi
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn text-white" id="mybidd" href="">
+                            <i class="fas fa-gavel fa-fw"></i>
+                            Đấu giá của tôi
+                        </a>
+                    }
                 </li>
                 <li class="nav-item mx-1">
                     <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
@@ -132,42 +143,22 @@
                     <li>
                         <a class="active" href="#">KẾT THÚC NGAY</a>
                     </li>
-                    <li>
-                        <a href="#">CHO NÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">CHO CHÀNG</a>
-                    </li>
-                    <li>
-                        <a href="#">NHÀ CỬA ĐỜI SỐNG</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐỒ CHƠI VÀ BÉ</a>
-                    </li>
-                    <li>
-                        <a href="#">ĐIỆN TỬ VÀ CÔNG NGHỆ</a>
-                    </li>
-                    <li>
-                        <a href="#">DU LỊCH & THỂ THAO</a>
-                    </li>
-                    <li>
-                        <a href="#">SỨC KHỎE & SẮC ĐẸP</a>
-                    </li>
-                    <li>
-                        <a href="#">Ô TÔ & XE MÁY</a>
-                    </li>
-                    <li>
-                        <a href="#">DỤNG CỤ SỮA CHỮA</a>
-                    </li>
-                    <li>
-                        <a href="#">HÀNG TIÊU DÙNG</a>
-                    </li>
+                    @if (listDanhMuc != null)
+                    {
+                        foreach (var item in listDanhMuc)
+                        {
+                            var url = "/Category/Index?tendanhmuc=" + item.MoTa;
+                            <li>
+                                <a href="@url">@item.MoTa</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid pt-3 id="container">
+    <div class="container-fluid pt-3" id="container">
         <div class="w-75 justify-content-center" id="Content">
             <div class="col-8 p-3 w-75 bg-white mr-3">
                 <h2 style="font:bold;">Giỏ hàng</h2>
@@ -239,7 +230,7 @@
                         <tbody>
                             <tr>
                                 <td class="text-center"><button id="test" class="btn btn-primary">Trở về trang chủ</button></td>
-                            </tr>                       
+                            </tr>
                         </tbody>
                     </table>
 
@@ -313,7 +304,26 @@
             </div>
         </div>
     </footer>
-  
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn đăng xuất không?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary" type="button">@Html.ActionLink("Đăng xuất", "Logout", "Home", new { @class = "text-white", @style = "text-decoration:none;" })</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript">

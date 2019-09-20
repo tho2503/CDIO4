@@ -25,13 +25,8 @@ namespace Model.EF
         [StringLength(50)]
         public string TrangThai { get; set; }
 
-        [StringLength(255)]
-        public string DanhGia { get; set; }
-
         [StringLength(50)]
-        public string TenDN_NguoiBan { get; set; }
-
-        public int? ID_DanhMuc { get; set; }
+        public string TenDanhMuc { get; set; }
 
         [StringLength(50)]
         public string HinhAnh { get; set; }
@@ -40,8 +35,9 @@ namespace Model.EF
 
         public int? GiaBanRa { get; set; }
 
-        public virtual DanhMuc DanhMuc { get; set; }
+        [StringLength(50)]
+        public string NguoiThang { get; set; }
 
-        public virtual TaiKhoan TaiKhoan { get; set; }
+        public virtual DanhMuc DanhMuc { get; set; }
     }
 }

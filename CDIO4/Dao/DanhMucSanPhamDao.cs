@@ -16,12 +16,13 @@ namespace CDIO4.Dao
 
         public List<DanhMuc> ListSpDauGia()
         {
-            return db.DanhMucs.OrderBy(x => x.ID_DanhMuc).ToList();
+            return db.DanhMucs.OrderBy(x => x.TenDanhMuc).ToList();
         }
 
-        public DanhMuc ViewDetail(long id)
+        public DanhMuc ViewDetail(string tendanhmuc)
         {
-            return db.DanhMucs.Find(id);
+            return db.DanhMucs.Find(tendanhmuc);
         }
+
     }
 }

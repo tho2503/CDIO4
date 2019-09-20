@@ -28,7 +28,7 @@ namespace CDIO4.Dao
         public List<SanPhamDauGia> ListSpLienquan (long producId)
         {
             var product = db.SanPhamDauGias.Find(producId);
-            return db.SanPhamDauGias.Where(x => x.ID_SanPham != producId && x.ID_DanhMuc == product.ID_DanhMuc && x.TrangThai == "Đang đấu giá").ToList();
+            return db.SanPhamDauGias.Where(x => x.ID_SanPham != producId && x.TenDanhMuc == product.TenDanhMuc && x.TrangThai == "Đang đấu giá").ToList();
         }
 
         public SanPhamDauGia ViewDetail(long id)
@@ -36,6 +36,19 @@ namespace CDIO4.Dao
             return db.SanPhamDauGias.Find(id);
         }
 
-        
+        public List<SanPhamDauGia> DsDangDauGia (string ten)
+        {
+            return db.SanPhamDauGias.Where(x => x.NguoiThang == ten && x.TrangThai == "Đang đấu giá").OrderByDescending(x => x.NgayTao).ToList();
+        }
+
+        public List<SanPhamDauGia> DsDauGiaThang(string ten)
+        {
+            return db.SanPhamDauGias.Where(x => x.NguoiThang == ten && x.TrangThai == "Hết hạn").OrderByDescending(x => x.NgayTao).ToList();
+        }
+
+        public List<SanPhamDauGia> DsTheoDanhMuc (string tendm)
+        {
+            return db.SanPhamDauGias.Where(x => x.TenDanhMuc == tendm && x.TrangThai == "Đang đấu giá").OrderByDescending(x=>x.GiaBanRa).ToList();
+        }
     }
 }
