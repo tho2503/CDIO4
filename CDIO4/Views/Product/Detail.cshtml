@@ -40,16 +40,26 @@
             <!--Bar left-->
             <ul class="navbar-nav pr-5">
                 <li class="nav-item no-arrow mx-1">
-                    <a class="btn text-white" href="#">
+                    <a class="btn text-white" href="/Cart/Index">
                         <i class="fas fa-shopping-cart fa-fw"></i>
                         Giỏ hàng
                     </a>
                 </li>
                 <li class="nav-item no-arrow mx-1">
-                    <a class="btn text-white" href="#">
-                        <i class="fas fa-gavel fa-fw"></i>
-                        Đấu giá của tôi
-                    </a>
+                    @if (session != null)
+                    {
+                        <a class="btn text-white" id="mybidd" href="/MyBidding/Index?ten=@session.TenDangNhap">
+                            <i class="fas fa-gavel fa-fw"></i>
+                            Đấu giá của tôi
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn text-white" id="mybidd" href="">
+                            <i class="fas fa-gavel fa-fw"></i>
+                            Đấu giá của tôi
+                        </a>
+                    }
                 </li>
                 <li class="nav-item mx-1">
                     <a class="btn text-white show-modal" data-toggle="modal" data-target="#loginModal" id="Login-Button">Đăng nhập</a>
@@ -85,7 +95,7 @@
                     {
                         foreach (var item in listDanhMuc)
                         {
-                            var url = "/Category/Index/" + item.MoTa;
+                            var url = "/Category/Index/" + item.ID;
                             <li>
                                 <a href="@url">@item.TenDanhMuc</a>
                             </li>

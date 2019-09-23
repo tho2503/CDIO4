@@ -26,7 +26,10 @@ namespace Model
                 new SqlParameter("@Ten", ten)
             };
             int res = context.Database.ExecuteSqlCommand("Update_Bidding @Tien, @Id_Sanpham, @Ten", sqlParams);
-            return res;
+            if (res > 0)
+                return res;
+            else
+                return 0;
         }
 
         public List<PhienDauGia> ListForBidd()

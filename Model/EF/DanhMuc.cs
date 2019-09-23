@@ -15,13 +15,10 @@ namespace Model.EF
             SanPhamDauGias = new HashSet<SanPhamDauGia>();
         }
 
-        [Required]
+        public int ID { get; set; }
+
         [StringLength(50)]
         public string TenDanhMuc { get; set; }
-
-        [Key]
-        [StringLength(50)]
-        public string MoTa { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPhamDauGia> SanPhamDauGias { get; set; }

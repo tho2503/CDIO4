@@ -22,7 +22,8 @@ namespace Model.EF
         [StringLength(50)]
         public string MatKhau { get; set; }
 
-        public int? Quyen { get; set; }
+        [StringLength(20)]
+        public string Quyen { get; set; }
 
         [StringLength(50)]
         public string HoTen { get; set; }
@@ -34,6 +35,11 @@ namespace Model.EF
         public string Email { get; set; }
 
         public int? SDT { get; set; }
+
+        public bool TrangThai { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? NgayTao { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhienDauGia> PhienDauGias { get; set; }

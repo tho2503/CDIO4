@@ -145,9 +145,10 @@
 
                         }, 4000);
                         </script>
-
+                        
                         using (Html.BeginForm("Update", "Home", FormMethod.Post))
-                        {                          
+                        {
+                            @Html.AntiForgeryToken()
                             @Html.TextBoxFor(model => model.IDSanPham, new { @id = item.ID_SanPham, @type = "text", @style = "display:none;" });
                             <button type="submit" id="submit_Reload_@item.ID_SanPham" style="display:none;">submit</button>
                         }

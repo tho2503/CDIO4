@@ -13,9 +13,9 @@ namespace CDIO4.Controllers
     public class CategoryController : Controller
     {
         // GET: Category
-        public ActionResult Index(string tendanhmuc)
+        public ActionResult Index(int id)
         {
-            ViewBag.Sp_DanhMuc = new SanPhamDao().DsTheoDanhMuc(tendanhmuc);
+            ViewBag.Sp_DanhMuc = new SanPhamDao().DsTheoDanhMuc(id);
             ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
 
             return View();

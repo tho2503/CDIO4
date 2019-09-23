@@ -84,6 +84,7 @@ namespace CDIO4.Controllers
         [HttpGet]
         public ActionResult Payment()
         {
+            ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
             var cart = Session[CartSession];
             var list = new List<CartModel>();
             if(cart != null)
@@ -95,6 +96,8 @@ namespace CDIO4.Controllers
         }
         public ActionResult Payment(string tendg, string ten, string sdt, string diachi, string email)
         {
+            ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
+
             try
             {
                 var hd = new HoaDon();
@@ -126,6 +129,8 @@ namespace CDIO4.Controllers
 
         public ActionResult Finish()
         {
+            ViewBag.DanhMuc = new DanhMucSanPhamDao().ListSpDauGia();
+
             return View();
         }
     }

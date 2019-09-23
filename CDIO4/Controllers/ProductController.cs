@@ -27,13 +27,13 @@ namespace CDIO4.Controllers
 
         public ActionResult Bidding(long tien, long id, string ten)
         {
-            if (ModelState.IsValid)
+            var dao = new PhienDauGiaModel();
+            int result = dao.Update_Bidding(tien, id, ten);
+            if(result > 0)
             {
-                var dao = new PhienDauGiaModel();
-                int result = dao.Update_Bidding(tien, id, ten);               
+                return Redirect("Detail/" + id);
             }
-
-            return Redirect("Detail/"+id);
+            return View();
         }
 
 

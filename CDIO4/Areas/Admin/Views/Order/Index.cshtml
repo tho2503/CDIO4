@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var dsOrder = (List<Model.EF.HoaDon>)ViewBag.DsOrder;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Hóa đơn</a>
+        </li>
+    </ol>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách hóa đơn
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tài khoản</th>
+                        <th>Tên nhận hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                        <th>Ngày tạo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (dsOrder != null)
+                    {
+                        foreach (var item in dsOrder)
+                        {
+                            <tr>
+                                <td>@item.ID_HoaDon</td>
+                                <td>@item.TenDN</td>
+                                <td>@item.Ten_Ship</td>
+                                <td>@item.SDT</td>
+                                <td>@item.DiaChi</td>
+                                <td>@item.Email</td>
+                                <td>@item.NgayTao</td>
+                                <td style="text-align:center;">
+                                    <a href="/Admin/Order/Detail?id=@item.ID_HoaDon">Xem chi tiết</a>                                 
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

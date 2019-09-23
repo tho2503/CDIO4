@@ -1,0 +1,76 @@
+﻿@model Model.EF.TaiKhoan
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Admin/Account/Index">Tài khoản</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <a>Cập nhật</a>
+        </li>
+    </ol>
+</div>
+<div class="container mt-5">
+    <h2 class="alert alert-dark text-center mb-4">Cập nhật tài khoản</h2>
+    @using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <form class="py-4">
+            <div class="form-group row justify-content-center">
+                <label for="TenDN" class="col-2 col-form-label">Tên đăng nhập</label>
+                <div class="col-3">
+                    @Html.TextBoxFor(Model => Model.TenDangNhap, new { @type = "text", @class = "form-control", @id = "TenDN", @placeholder = "UserName", @required = "true" })
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="MatKhau" class="col-2 col-form-label">Mật khẩu</label>
+                <div class="col-3">
+                    @Html.TextBoxFor(Model => Model.MatKhau, new { @type = "text", @class = "form-control", @id = "MatKhau", @placeholder = "Password", @required = "true" })
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="HoTen" class="col-2 col-form-label">Họ và tên</label>
+                <div class="col-3">
+                    @Html.TextBoxFor(Model => Model.HoTen, new { @type = "text", @class = "form-control", @id = "HoTen", @placeholder = "YourName", @required = "true" })
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="DiaChi" class="col-2 col-form-label">Địa chỉ</label>
+                <div class="col-3">
+                    @Html.TextBoxFor(Model => Model.Diachi, new { @type = "text", @class = "form-control", @id = "DiaChi", @placeholder = "Address", @required = "true" })
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="email" class="col-2 col-form-label">Email</label>
+                <div class="col-3">
+                    @Html.TextBoxFor(Model => Model.Email, new { @type = "email", @class = "form-control", @id = "email", @placeholder = "Email", @required = "true" })
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="sdt" class="col-2 col-form-label">Số điện thoại</label>
+                <div class="col-3">
+                    @Html.TextBoxFor(Model => Model.SDT, new { @type = "tel", @class = "form-control", @id = "sdt", @placeholder = "Gồm 9 số", @required = "true", @pattern = "[0-9]{10}" })
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="Confirm" class="col-2 col-form-label">Trạng thái</label>
+                <div class="col-3">
+                    @Html.CheckBoxFor(Model => Model.TrangThai, new { @class = "form-control btn-sm" })
+                </div>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "Text-danger" })
+            <div class="form-group row pt-2 justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg" id="dangky">Xác nhận</button>
+            </div>
+
+        </form>
+    }
+</div>
+

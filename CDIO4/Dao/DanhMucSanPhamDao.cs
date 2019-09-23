@@ -16,7 +16,7 @@ namespace CDIO4.Dao
 
         public List<DanhMuc> ListSpDauGia()
         {
-            return db.DanhMucs.OrderBy(x => x.TenDanhMuc).ToList();
+            return db.DanhMucs.OrderBy(x => x.ID).ToList();
         }
 
         public DanhMuc ViewDetail(string tendanhmuc)

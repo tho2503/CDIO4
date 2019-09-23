@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var dsDetail = (List<Model.ViewModel.HoaDonViewModel>)ViewBag.Detail;
+    var Sum = ViewBag.Sum;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Admin/Order/Index">Hóa đơn</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Chi tiết</a>
+        </li>
+    </ol>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách sản phẩm
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="table"  cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    @if (dsDetail != null)
+                    {
+                        foreach (var item in dsDetail)
+                        {
+                            <tr>
+                                <td>@item.TenSP</td>
+                                <td>@item.SoLuong</td>
+                                <td>@(item.Gia)K</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-danger">Tổng: @(Sum)K</td>
+                    </tr>                
+                </tfoot>
+                </table>
+        </div>
+    </div>
+</div>
+
+

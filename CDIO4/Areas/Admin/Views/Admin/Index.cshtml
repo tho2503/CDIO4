@@ -1,0 +1,304 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var dsBidd = (List<Model.EF.PhienDauGia>)ViewBag.DsBidd;
+    var dsSP = (List<Model.EF.SanPhamDauGia>)ViewBag.DsSP;
+    var dsHD = (List<Model.EF.HoaDon>)ViewBag.DsHD;
+    var dsTK = (List<Model.EF.TaiKhoan>)ViewBag.DsTK;
+
+    //Phiên đấu giá
+    var dsBiddT1 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT1;
+    var dsBiddT2 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT2;
+    var dsBiddT3 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT3;
+    var dsBiddT4 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT4;
+    var dsBiddT5 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT5;
+    var dsBiddT6 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT6;
+    var dsBiddT7 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT7;
+    var dsBiddT8 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT8;
+    var dsBiddT9 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT9;
+    var dsBiddT10 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT10;
+    var dsBiddT11 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT11;
+    var dsBiddT12 = (List<Model.EF.PhienDauGia>)ViewBag.CountBiddT12;
+
+    //Doanh thu
+    var dtT1 = ViewBag.DoanhThuT1;
+    var dtT2 = ViewBag.DoanhThuT2;
+    var dtT3 = ViewBag.DoanhThuT3;
+    var dtT4 = ViewBag.DoanhThuT4;
+    var dtT5 = ViewBag.DoanhThuT5;
+    var dtT6 = ViewBag.DoanhThuT6;
+    var dtT7 = ViewBag.DoanhThuT7;
+    var dtT8 = ViewBag.DoanhThuT8;
+    var dtT9 = ViewBag.DoanhThuT9;
+    var dtT10 = ViewBag.DoanhThuT10;
+    var dtT11 = ViewBag.DoanhThuT11;
+    var dtT12 = ViewBag.DoanhThuT12;
+
+    //Sản phẩm theo mục
+    var spMuc1 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc1;
+    var spMuc2 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc2;
+    var spMuc3 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc3;
+    var spMuc4 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc4;
+    var spMuc5 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc5;
+    var spMuc6 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc6;
+    var spMuc7 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc7;
+    var spMuc8 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc8;
+    var spMuc9 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc9;
+    var spMuc10 = (List<Model.EF.SanPhamDauGia>)ViewBag.SpMuc10;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+            <a>Trang chính</a>
+        </li>
+    </ol>
+</div>
+<div class="row" style="margin:5px;">
+    <div class="col-xl-3 col-sm-6 p-2" style="padding-bottom:0px;">
+        <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fas fa-fw fa-gavel"></i>
+                </div>
+                @if (dsBidd != null)
+                {
+                    <div class="mr-5">@dsBidd.Count Phiên đấu giá</div>
+                }
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Bidd/Index">
+                <span class="float-left">Xem chi tiết</span>
+                <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fas fa-fw fa-product-hunt"></i>
+                </div>
+                @if (dsSP != null)
+                {
+                    <div class="mr-5">@dsSP.Count Sản phẩm</div>
+                }
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Product/Index">
+                <span class="float-left">Xem chi tiết</span>
+                <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                </div>
+                @if (dsHD != null)
+                {
+                    <div class="mr-5">@dsHD.Count Đơn hàng</div>
+                }
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Order/Index">
+                <span class="float-left">Xem chi tiết</span>
+                <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 p-2">
+        <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+                <div class="card-body-icon">
+                    <i class="fas fa-fw fa-list"></i>
+                </div>
+                @if (dsTK != null)
+                {
+                    <div class="mr-5">@dsTK.Count Tài khoản hoạt động</div>
+                }
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="/Admin/Account/Index">
+                <span class="float-left">Xem chi tiết</span>
+                <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="card mb-3" style="margin:15px;">
+    <div class="card-header">
+        <i class="fas fa-chart-area"></i>
+        Đồ thị phiên đấu giá
+    </div>
+    <div class="card-body">
+        <canvas id="myAreaChart" height="80"></canvas>
+    </div>
+</div>
+<div class="row" style="margin:5px;">
+    <div class="col-lg-8 p-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-chart-bar"></i>
+                Đồ thị đơn hàng
+            </div>
+            <div class="card-body">
+                <canvas id="myBarChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 p-2">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-chart-pie"></i>
+                Đồ thị sản phẩm theo danh mục
+            </div>
+            <div class="card-body">
+                <canvas id="myPieChart" height="212"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+@section JsChart{
+    <script type="text/javascript">
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+
+        // Area Chart Example
+        var ctx = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+                datasets: [{
+                    label: "Phiên đấu giá",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(2,117,216,0.2)",
+                    borderColor: "rgba(2,117,216,1)",
+                    pointRadius: 5,
+                    pointBackgroundColor: "rgba(2,117,216,1)",
+                    pointBorderColor: "rgba(255,255,255,0.8)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                    pointHitRadius: 50,
+                    pointBorderWidth: 2,
+                    @if (dsBiddT1 != null || dsBiddT2 != null || dsBiddT3 != null || dsBiddT4 != null || dsBiddT5 != null ||
+                        dsBiddT6 != null || dsBiddT7 != null || dsBiddT8 != null || dsBiddT9 != null || dsBiddT10 != null ||
+                        dsBiddT11 != null || dsBiddT12 != null)
+                    {
+                    <text>
+                    data: [@dsBiddT1.Count, @dsBiddT2.Count, @dsBiddT3.Count, @dsBiddT4.Count, @dsBiddT5.Count, @dsBiddT6.Count,
+                    @dsBiddT7.Count, @dsBiddT8.Count, @dsBiddT9.Count, @dsBiddT10.Count, @dsBiddT11.Count, @dsBiddT12.Count],
+                    </text>
+                        }
+                    }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 12
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 50,
+                            maxTicksLimit: 10
+                        },
+                        gridLines: {
+                            color: "rgba(0, 0, 0, .125)",
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+
+        // Bar Chart Example
+        var ctx = document.getElementById("myBarChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+                datasets: [{
+                    label: "Tổng (Đơn vị nghìn) ",
+                    backgroundColor: "rgba(2,117,216,1)",
+                    borderColor: "rgba(2,117,216,1)",
+                    data: [@dtT1, @dtT2, @dtT3, @dtT4, @dtT5, @dtT6, @dtT7, @dtT8, @dtT9, @dtT10, @dtT11, @dtT12],
+                }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'month'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 12
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 1000,
+                            maxTicksLimit: 10
+                        },
+                        gridLines: {
+                            display: true
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["CHO CHÀNG", "CHO NÀNG", "ĐIỆN TỬ VÀ CÔNG NGHỆ", "ĐỒ CHƠI VÀ BÉ", "DU LỊCH VÀ THỂ THAO", "DỤNG CỤ SỬA CHỮA", "HÀNG TIÊU DÙNG", "NHÀ CỬA ĐỜI SỐNG", "Ô TÔ VÀ XE MÁY", "SỨC KHOẺ VÀ SẮC ĐẸP"],
+                datasets: [{
+                    @if(spMuc1 != null || spMuc2 != null || spMuc3 != null || spMuc4 != null || spMuc5 != null || spMuc6 != null ||
+                        spMuc7 != null || spMuc8 != null || spMuc9 != null || spMuc10 != null) { 
+                    <text>
+                    data: [@spMuc1.Count, @spMuc2.Count, @spMuc3.Count, @spMuc4.Count, @spMuc5.Count, @spMuc6.Count, @spMuc7.Count, @spMuc8.Count, @spMuc9.Count, @spMuc10.Count],
+                    </text>
+                     }
+                    backgroundColor: ['#000000', '#007bff', '#dc3545', '#ffc107', '#28a745', '#808080', '#00ffff', '#ff6a00', '#da19ef', '#f609c5'],
+                }],
+            },
+        });
+    </script>
+}
+
+
+

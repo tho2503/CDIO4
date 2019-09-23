@@ -17,19 +17,6 @@ namespace Model
             context = new AuctionOnlineDbContext();
         }
 
-        public string Insert(TaiKhoan entity)
-        {
-            context.TaiKhoans.Add(entity);
-            context.SaveChanges();
-            return entity.TenDangNhap;
-        }
-
-        public TaiKhoan GetByName(string tenDangNhap)
-        {
-            return context.TaiKhoans.SingleOrDefault(x => x.TenDangNhap == tenDangNhap);
-        }
-
-
         public bool Login(string userName, string passWord)
         {
             object[] sqlParams =
@@ -37,7 +24,27 @@ namespace Model
                 new SqlParameter("@TenDangNhap", userName),
                 new SqlParameter("@MatKhau", passWord)
             };
-            var result = context.Database.SqlQuery<bool>("Account_Login @TenDangNhap,@MatKhau", sqlParams).SingleOrDefault();
+            if (userName != null && passWord != null)
+            {
+                var result = context.Database.SqlQuery<bool>("Account_Login @TenDangNhap,@MatKhau", sqlParams).SingleOrDefault();
+                return result;
+            }
+            
+            return false;
+        }
+
+        public int Registry(string TenDn, string MatKhau, string HoTen, string DiaChi, string Email, int Sdt)
+        {
+            object[] sqlParams =
+            {
+                new SqlParameter("@TenDn", TenDn),
+                new SqlParameter("@MatKhau", MatKhau),
+                new SqlParameter("@HoTen", HoTen),
+                new SqlParameter("@DiaChi", DiaChi),
+                new SqlParameter("@Email", Email),
+                new SqlParameter("@Sdt", Sdt)
+            };
+            int result = context.Database.ExecuteSqlCommand("Registry @TenDn,@MatKhau,@HoTen,@DiaChi,@Email,@Sdt", sqlParams);
 
             return result;
         }

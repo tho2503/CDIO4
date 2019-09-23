@@ -147,9 +147,9 @@
                     {
                         foreach (var item in listDanhMuc)
                         {
-                            var url = "/Category/Index?tendanhmuc=" + item.MoTa;
+                            var url = "/Category/Index?tendanhmuc=" + item.ID;
                             <li>
-                                <a href="@url">@item.MoTa</a>
+                                <a href="@url">@item.TenDanhMuc</a>
                             </li>
                         }
                     }
@@ -238,7 +238,7 @@
             </div>
             @foreach (var item in Model)
             {
-                <div class="p-3 bg-white h-100">
+                <div class="p-3 bg-white h-100" style="color:black;">
                     <div class="col pl-2">
                         <h4>Tóm tắt đơn hàng</h4>
                         <div class="row py-2">
@@ -253,7 +253,7 @@
                                 <a style="color:deepskyblue">35K</a>
                                 <br />
                                 <br />
-                                <a style="color:deepskyblue">@(item.Product.GiaBanRa.GetValueOrDefault(0) * 10 % +item.Product.GiaBanRa.GetValueOrDefault(0) + 35)K</a>
+                                <a style="color:deepskyblue">@(item.Product.GiaBanRa.GetValueOrDefault(0) * 0.1 + item.Product.GiaBanRa.GetValueOrDefault(0)+35)K</a>
                             </div>
                         </div>
                         <div class="col-12 pl-3">

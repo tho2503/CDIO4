@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var dsDanhMuc = (List<Model.EF.DanhMuc>)ViewBag.DsDanhMuc;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Danh mục</a>
+        </li>
+    </ol>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách Danh mục
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">ID</th>
+                        <th>Tên danh mục</th>                       
+                        <th width="10%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (dsDanhMuc != null)
+                    {
+                        foreach (var item in dsDanhMuc)
+                        {
+                            <tr id="row_@item.ID">
+                                <td>@item.ID</td>
+                                <td>@item.TenDanhMuc</td>                              
+                                <td style="text-align:center;">
+                                    <a href="/Admin/Category/Edit?id=@item.ID">Sửa</a> |
+                                    @Ajax.ActionLink("Xóa", "Delete", new { @tendn = item.ID }, new AjaxOptions
+                                                                    {
+                                                                        Confirm = "Bạn có muốn xóa tài khoản này?",
+                                                                        OnComplete = "$('#row_"+@item.ID+"').remove()",
+                                                                        HttpMethod = "Delete"
+                                                                    })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+

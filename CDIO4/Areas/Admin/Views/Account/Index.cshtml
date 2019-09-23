@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var dsTaiKhoan = (List<Model.EF.TaiKhoan>)ViewBag.DsTaiKhoan;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Tài khoản</a>
+        </li>
+    </ol>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách tài khoản
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên đăng nhập</th>
+                        <th>Mật khẩu</th>
+                        <th>Quyền</th>
+                        <th>Họ tên</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (dsTaiKhoan != null)
+                    {
+                        foreach (var item in dsTaiKhoan)
+                        {
+                    <tr id="row_@item.TenDangNhap">
+                        <td>@item.TenDangNhap</td>
+                        <td>@item.MatKhau</td>
+                        <td>@item.Quyen</td>
+                        <td>@item.HoTen</td>
+                        <td>@item.Diachi</td>
+                        <td>@item.Email</td>
+                        <td>@item.SDT</td>
+                        <td>@item.TrangThai</td>
+                        <td style="text-align:center;">
+                            <a href="/Admin/Account/Edit?tendn=@item.TenDangNhap" >Sửa</a> |
+                            @Ajax.ActionLink("Xóa", "Delete", new { @tendn = item.TenDangNhap }, new AjaxOptions
+                                                            {
+                                                                Confirm = "Bạn có muốn xóa tài khoản này?",
+                                                                OnComplete = "$('#row_"+@item.TenDangNhap+"').remove()",
+                                                                HttpMethod = "Delete"
+                                                            })
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>   
+</div>

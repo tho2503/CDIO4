@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var List = (List<Model.EF.SanPhamDauGia>)ViewBag.ListProduct;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Sản phẩm</a>
+        </li>        
+    </ol>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách tài khoản
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Mô tả</th>
+                        <th>Đấu giá đến</th>
+                        <th>Giá ban đầu</th>
+                        <th>Trạng thái</th>
+                        <th>ID danh mục</th>
+                        <th>Hình ảnh</th>   
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (List != null)
+                    {
+                        foreach (var item in List)
+                        {
+                    <tr id="row_@item.ID_SanPham">
+                        <td>@item.ID_SanPham</td>
+                        <td>@item.TenSP</td>
+                        <td>@item.MoTa</td>
+                        <td>@item.HanDauGia</td>
+                        <td>@item.GiaDuKien</td>
+                        <td>@item.TrangThai</td>
+                        <td>@item.ID_DanhMuc</td>
+                        <td><img src="@item.HinhAnh" /></td>
+                        <td style="text-align:center;">
+                            <a href="/Admin/Product/Edit?id=@item.ID_SanPham">Sửa</a> |
+                            @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID_SanPham }, new AjaxOptions
+                                                            {
+                                                                Confirm = "Bạn có muốn xóa tài khoản này?",
+                                                                OnComplete = "$('#row_"+@item.ID_SanPham+"').remove()",
+                                                                HttpMethod = "Delete"
+                                                            })
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -18,19 +18,14 @@ namespace Model.EF
         public virtual DbSet<PhienDauGia> PhienDauGias { get; set; }
         public virtual DbSet<SanPhamDauGia> SanPhamDauGias { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Table> Tables { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DanhMuc>()
-                .Property(e => e.MoTa)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<DanhMuc>()
                 .HasMany(e => e.SanPhamDauGias)
                 .WithOptional(e => e.DanhMuc)
-                .HasForeignKey(e => e.TenDanhMuc);
+                .HasForeignKey(e => e.ID_DanhMuc);
 
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.TenDN)
@@ -45,10 +40,6 @@ namespace Model.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<SanPhamDauGia>()
-                .Property(e => e.TenDanhMuc)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SanPhamDauGia>()
                 .Property(e => e.HinhAnh)
                 .IsUnicode(false);
 
@@ -56,16 +47,16 @@ namespace Model.EF
                 .Property(e => e.NguoiThang)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Table>()
-                .Property(e => e.Gia)
-                .HasPrecision(18, 0);
-
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.TenDangNhap)
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.MatKhau)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+                .Property(e => e.Quyen)
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()

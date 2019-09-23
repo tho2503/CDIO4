@@ -68,7 +68,9 @@
                         </i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Cá nhân</a>
+                        @if (session != null) { 
+                        <a class="dropdown-item" href="/User/Edit?tendn=@session.TenDangNhap">Cá nhân</a>
+                        }
                         <a class="dropdown-item" href="#">Đơn hàng</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
@@ -88,7 +90,7 @@
                     {
                         foreach (var item in listDanhMuc)
                         {
-                            var url = "/Category/Index?tendanhmuc=" + item.MoTa;
+                            var url = "/Category/Index?tendanhmuc=" + item.ID;
                             <li>
                                 <a href="@url">@item.TenDanhMuc</a>
                             </li>
@@ -113,7 +115,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content" style="color:black;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" >Bạn muốn đăng xuất không?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn đăng xuất không?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -148,7 +150,6 @@
                                 @using (@Html.BeginForm("Login", "Home", FormMethod.Post))
                                 {
                                     @Html.AntiForgeryToken()
-                                    @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
                                     <div class="form-group">
                                         <div class="form-label-group">
                                             @Html.TextBoxFor(model => model.TenDangNhap, new { @class = "form-control", @Type = "text", @id = "inputEmail", @placeholder = "Email address", @autofocus = "autofocus" })
@@ -169,64 +170,80 @@
                                             </label>
                                         </div>
                                     </div>
+                                    @Html.ValidationSummary(true, null, new { @class = "alert alert-danger", @style = "margin:auto;" })
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                                     </div>
                                 }
                             </div>
                             <div id="form2" class="container tab-pane border" style="padding:5px;">
-                                @using (Html.BeginForm("", "", FormMethod.Post))
+                                @using (Html.BeginForm("Registry", "Home", FormMethod.Post))
                                 {
-                                <form class="py-4">
-                                    <div class="form-group row ">
-                                        <label for="TenDN" class="col-3 col-form-label">Tên đăng nhập</label>
-                                        <div class="col-9">
-                                            <input name="tendn" type="text" class="form-control" id="TenDN" placeholder="UserName" />
+                                    @Html.AntiForgeryToken()
+                                    <form class="py-4">
+                                        <div class="form-group row ">
+                                            <label for="TenDN" class="col-3 col-form-label">Tên đăng nhập</label>
+                                            <div class="col-9">
+                                                <input name="tendn" type="text" class="form-control" id="TenDN" placeholder="UserName" required />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label for="MatKhau" class="col-3 col-form-label">Họ tên</label>
-                                        <div class="col-9">
-                                            <input name="mk" type="text" class="form-control" id="MatKhau" placeholder="Password" />
+                                        <div class="form-group row ">
+                                            <label for="MatKhau" class="col-3 col-form-label">Mật khẩu</label>
+                                            <div class="col-9">
+                                                <input name="matkhau" type="password" class="form-control" id="MatKhau" placeholder="Password" required />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="hoten" class="col-3 col-form-label">Họ và tên</label>
-                                        <div class="col-9">
-                                            <input name="hoten" type="text" class="form-control" id="sdt" placeholder="YourName" />
+                                        <div class="form-group row ">
+                                            <label for="MatKhau" class="col-3 col-form-label">Nhập lại mật khẩu</label>
+                                            <div class="col-9">
+                                                <input name="matkhau" type="password" class="form-control" id="Confirm" placeholder="Comfirm password" required />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="DiaChi" class="col-3 col-form-label">Địa chỉ</label>
-                                        <div class="col-9">
-                                            <input name="diachi" type="text" class="form-control" id="DiaChi" placeholder="Address" />
+                                        <div class="form-group row">
+                                            <label for="hoten" class="col-3 col-form-label">Họ và tên</label>
+                                            <div class="col-9">
+                                                <input name="hoten" type="text" class="form-control" id="HoTen" placeholder="YourName" required />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="email" class="col-3 col-form-label">Email</label>
-                                        <div class="col-9">
-                                            <input name="email" type="text" class="form-control" id="email" placeholder="Email" />
+                                        <div class="form-group row">
+                                            <label for="DiaChi" class="col-3 col-form-label">Địa chỉ</label>
+                                            <div class="col-9">
+                                                <input name="diachi" type="text" class="form-control" id="DiaChi" placeholder="Address" required />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="sdt" class="col-3 col-form-label">Số điện thoại</label>
-                                        <div class="col-9">
-                                            <input name="email" type="text" class="form-control" id="sdt" placeholder="Phone Number" />
+                                        <div class="form-group row">
+                                            <label for="email" class="col-3 col-form-label">Email</label>
+                                            <div class="col-9">
+                                                <input name="email" type="email" class="form-control" id="email" placeholder="Email" required />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row justify-content-center">
-                                        <button type="submit" class="btn btn-primary">Xác nhận</button>
-                                    </div>
-                                </form>
+                                        <div class="form-group row">
+                                            <label for="sdt" class="col-3 col-form-label">Số điện thoại</label>
+                                            <div class="col-9">
+                                                <input name="sdt" type="tel" class="form-control" id="sdt" required placeholder = "Số điện thoại" maxlength = "10"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row justify-content-center">
+                                            <button type="submit" class="btn btn-primary" id="dangky">Xác nhận</button>
+                                        </div>
+                                    </form>
                                 }
                             </div>
+                            @if (ViewBag.TenDn != null)
+                            {<div class="alert alert-danger">@ViewBag.TenDn</div>}
+                            @if (ViewBag.Email != null)
+                            {<div class="alert alert-danger">@ViewBag.Email</div>}
+                            @if (ViewBag.Sucess != null)
+                            {<div class="alert alert-danger">@ViewBag.Sucess</div>}
+                            @if (ViewBag.Failure != null)
+                            {<div class="alert alert-danger">@ViewBag.Failure</div>}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script type="text/javascript" src="~/Assets/Home/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="~/Assets/Home/vendor/bootstrap/js/bootstrap.js"></script>
@@ -255,7 +272,21 @@
             </text>
         }
     </script>
+    <script type="text/javascript">
+        var password = document.getElementById("MatKhau")
+            , confirm_password = document.getElementById("Confirm");
 
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Xác nhận mật khẩu không đúng");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script>
+    
     @RenderSection("JsFooter", required: false)
 </body>
 </html>

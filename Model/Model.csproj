@@ -57,16 +57,18 @@
     <Compile Include="EF\PhienDauGia.cs" />
     <Compile Include="EF\SanPhamDauGia.cs" />
     <Compile Include="EF\sysdiagram.cs" />
-    <Compile Include="EF\Table.cs" />
     <Compile Include="EF\TaiKhoan.cs" />
     <Compile Include="PhienDauGiaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaiKhoanModel.cs" />
     <Compile Include="UpdateStatus.cs" />
+    <Compile Include="ViewModel\HoaDonViewModel.cs" />
+    <Compile Include="ViewModel\PhienDauGiaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

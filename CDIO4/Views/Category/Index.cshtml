@@ -84,7 +84,7 @@
                     {
                         foreach (var item in listDanhMuc)
                         {
-                            var url = "/Category/Index?tendanhmuc=" + item.MoTa;
+                            var url = "/Category/Index?tendanhmuc=" + item.ID;
                             <li>
                                 <a href="@url">@item.TenDanhMuc</a>
                             </li>
@@ -164,7 +164,7 @@
                                 var a = document.getElementById("@item.ID_SanPham");
                                 a.value = @item.ID_SanPham;
                                 var b = document.getElementById("dm_@item.ID_SanPham");
-                                b.value = "@item.TenDanhMuc";
+                                b.value = "@item.ID_DanhMuc";
                                 document.getElementById("submit_Reload_@item.ID_SanPham").click();
                             }
 

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var dsPhiendaugia = (List<Model.ViewModel.PhienDauGiaViewModel>)ViewBag.DsBidd;
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Danh sách phiên đấu giá</a>
+        </li>
+    </ol>
+</div>
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách phiên đấu giá
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá hiện tại</th>
+                        <th>Tên người đấu giá</th>
+                        <th>Thời gian</th>                       
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (dsPhiendaugia != null)
+                    {
+                        foreach (var item in dsPhiendaugia)
+                        {
+                            <tr id="row_@item.ID_PhienDauGia">
+                                <td>@item.ID_PhienDauGia</td>
+                                <td>@item.TenSP</td>
+                                <td>@item.GiaHienTai</td>
+                                <td>@item.TenNguoiDauGia</td>
+                                <td>@item.ThoiGian</td>                              
+                                <td style="text-align:center;">
+                                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.ID_PhienDauGia }, new AjaxOptions
+                                                            {
+                                                                Confirm = "Bạn có muốn xóa Phiên đấu giá này?",
+                                                                OnComplete = "$('#row_"+@item.ID_PhienDauGia+"').remove()",
+                                                                HttpMethod = "Delete"
+                                                            })
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -17,5 +17,7 @@ namespace Model.EF
         public int? SoLuong { get; set; }
 
         public int? Gia { get; set; }
+
+        public DateTime? NgayTao { get; set; }
     }
 }

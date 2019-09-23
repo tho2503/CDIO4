@@ -1,0 +1,94 @@
+﻿@model Model.EF.SanPhamDauGia
+@{
+    ViewBag.Title = "AddItem";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter{
+    <script>
+        $('#btn_SelectImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#HinhAnh').val(url);
+            };
+            finder.popup();
+        })       
+    </script>
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Admin/Index">Trang chính</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/Admin/Product/Index">Sản phẩm</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a>Thêm sản phẩm</a>
+        </li>
+    </ol>
+</div>
+<div class="container mt-5">
+    <h2 class="alert alert-dark text-center mb-4">Thêm sản phẩm</h2>
+    @using (Html.BeginForm("AddItem", "Product", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <form class="py-4">
+            <div class="form-group row justify-content-center">
+                <label for="TenSP" class="col-2 col-form-label">Tên sản phẩm</label>
+                <div class="col-4">
+                    <input name="tensp" type = "text" class = "form-control" id = "TenSP", placeholder = "Tên sản phẩm" required/>                 
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="MoTa" class="col-2 col-form-label">Mô tả</label>
+                <div class="col-4">
+                    <textarea name="mota" rows="3" cols="20" class="form-control" id="MoTa"></textarea>                  
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="HanDauGia" class="col-2 col-form-label">Hạn đấu giá</label>
+                <div class="col-4">
+                    <input name="handaugia" type="datetime-local" class="form-control" id="HanDauGia" required />
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="GiaDuKien" class="col-2 col-form-label">Giá ban đầu</label>
+                <div class="col-4">
+                    <input name="giadukien" type="number" class="form-control" id="GiaDuKien" required />                  
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="DanhMuc" class="col-2 col-form-label">Danh mục</label>
+                <div class="col-4">
+                    <select name="danhmuc" id="DanhMuc" class="form-control">
+                        <option value="1">CHO NÀNG</option>
+                        <option value="2">CHO CHÀNG</option>
+                        <option value="3">ĐIỆN TỬ VÀ CÔNG NGHỆ</option>
+                        <option value="4">ĐỒ CHƠI VÀ BÉ</option>
+                        <option value="5">DU LỊCH & THỂ THAO</option>
+                        <option value="6">DỤNG CỤ SỬA CHỮA</option>
+                        <option value="7">HÀNG TIÊU DÙNG</option>
+                        <option value="8">NHÀ CỬA ĐỜI SỐNG</option>
+                        <option value="9">Ô TÔ & XE MÁY</option>
+                        <option value="10">SỨC KHOẺ & SẮC ĐẸP</option>
+                    </select>                    
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <label for="HinhAnh" class="col-2 col-form-label">Hình ảnh</label>
+                <div class="col-4">
+                    <input class="col-8" name="hinhanh" id="HinhAnh" required />
+                    <a class="btn btn-dark" href="#" id="btn_SelectImage">Chọn ảnh</a>
+                </div>
+            </div>           
+            @Html.ValidationSummary(true, "", new { @class = "Text-danger" })
+            <div class="form-group row pt-2 justify-content-center">
+                <button type="submit" class="btn btn-primary" id="dangky">Thêm mới</button>
+            </div>
+        </form>
+    }
+</div>
+
